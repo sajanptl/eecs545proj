@@ -1,0 +1,6 @@
+.DS_Store
+.DS_Store?
+
+# ignore Yelp dataset which is too large
+*.tar
+data/yelp_dataset_challenge_academic_dataset

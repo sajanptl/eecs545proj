@@ -1,0 +1,5 @@
+Number of business: 61184
+Number of restaurants: 21892
+
+Number of reviews: 1569264
+Number of reviews on restaurants: 990627
