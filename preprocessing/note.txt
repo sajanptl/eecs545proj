@@ -1,3 +1,11 @@
+AP Dataset
+
+Number of documents in ap.txt: 2250 (might have a few documents that are empty, needs to be cleaned)
+
+
+
+Yelp Dataset
+
 Number of business: 61184
 Number of restaurants: 21892
 
