@@ -2,5 +2,5 @@
 .DS_Store?
 
 # ignore large datasets
-data_original/
+*.tar
 data/yelp_dataset_challenge_academic_dataset
