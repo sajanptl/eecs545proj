@@ -49,8 +49,8 @@ while(change>thresh)
 end
 
 % Obtain the estimated posterior distribution.
-theta=bsxfun(@time,gamma,1./sum(gamma,2));
+theta=bsxfun(@times,gamma,1./sum(gamma,2));
 z=phi;
-beta=bsxfun(@time,lambda,1./sum(lambda,2));
+beta=bsxfun(@times,lambda,1./sum(lambda,2));
 
 end
