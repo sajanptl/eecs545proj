@@ -7,6 +7,8 @@ import pdb
 
 import numpy as np
 import pandas as pd
+import scipy.io as sio
+
 import re
 from scipy.sparse import coo_matrix
 from nltk.corpus import stopwords
@@ -60,7 +62,11 @@ X = vectorizer.transform(tokens)
 # the Gibbs sampler but becomes necessary when writing the resulting word-topic
 # distributions to a file using the writetopics matlab function.
 WO = vectorizer.get_feature_names()
-np.savetxt('data/ap/LDA_input/WO.txt', WO, '%s')
+# # save as txt
+# np.savetxt('data/ap/LDA_input/WO.txt', WO, '%s')
+sio.savemat('data/ap/LDA_input/WO.mat',
+            mdict={'MO': WO},
+            oned_as='column')
 
 
 # WS is a N x 1 vector where WS(k) contains the vocabulary index of the kth
@@ -80,5 +86,12 @@ for i, j, v in zip(Xcoo.row, Xcoo.col, Xcoo.data):
         DS.append(i+1)
         WS.append(j+1)
 
-np.savetxt('data/ap/LDA_input/DS.txt', DS, '%d')
-np.savetxt('data/ap/LDA_input/WS.txt', WS, '%d')
+# save as txt
+# np.savetxt('data/ap/LDA_input/DS.txt', DS, '%d')
+# np.savetxt('data/ap/LDA_input/WS.txt', WS, '%d')
+sio.savemat('data/ap/LDA_input/DS.mat',
+            mdict={'DS': DS},
+            oned_as='column')
+sio.savemat('data/ap/LDA_input/WS.mat',
+            mdict={'WS': WS},
+            oned_as='column')
