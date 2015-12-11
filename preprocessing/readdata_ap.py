@@ -10,7 +10,7 @@ import pandas as pd
 import scipy.io as sio
 
 import re
-from scipy.sparse import coo_matrix
+from scipy.sparse import coo_matrix, csr_matrix
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
@@ -94,4 +94,21 @@ sio.savemat('data/ap/LDA_input/DS.mat',
             oned_as='column')
 sio.savemat('data/ap/LDA_input/WS.mat',
             mdict={'WS': WS},
+            oned_as='column')
+
+
+# Generate matrix used by variational inference LDA - ZWD
+N = max(X.sum(axis = 1))[0][0]   # maximum number of tokens a document contains
+D = X.shape[0]   # number of documents
+ZWD = np.zeros([D, N])
+DS = np.array(DS)
+WS = np.array(WS)
+for i in np.arange(D):
+    # pdb.set_trace()
+    row = WS[(DS == i+1).nonzero()]
+    row.resize((1, N))
+    ZWD[i,:] = row
+
+sio.savemat('data/ap/LDA_input/ZWD.mat',
+            mdict={'ZWD': ZWD},
             oned_as='column')
