@@ -7,13 +7,14 @@ function [theta,z,beta,L,i]=LDA_VI(lambda,gamma,phi,W,alpha,eta,beta,...
 % Terminology:
 %   K -- number of topics
 %   D -- number of documents
+%   N -- number of words in a document
 %   V -- vocabulary size
 %
 % Input (can specify initial values):
 %   lambda -- attached parameter to topics (K-by-V)
 %   gamma -- attached parameter to per-document topic propotions (D-by-K)
-%   phi -- attached parameter to per-word topic assignment (D-by-V-by-K)
-%   W -- observed documents (D-by-V)
+%   phi -- attached parameter to per-word topic assignment (D-by-N-by-K)
+%   W -- observed documents (D-by-N)
 %   alpha -- parameter for V-dimensional Dirichlet distribution (K-by-1)
 %   eta -- parameter for K-dimensional Dirichlet distribution (1-by-1)
 %   beta -- topic distribution among words (K-by-V)
@@ -29,20 +30,20 @@ function [theta,z,beta,L,i]=LDA_VI(lambda,gamma,phi,W,alpha,eta,beta,...
 %   L -- the evidence lower bound w.r.t. iterations
 %   i -- number of iterations
 %
-% Author: Z. Luo
+% Author: Zheng Luo
 % Date: December 2015
 
 % Run iterations with mean-field variational inference.
 change=inf;
 i=0;
-L=ELB(gamma,phi,alpha,beta);
+L=ELB(gamma,phi,alpha,beta,W);
 while(change>thresh)
     if(i>=iter)
         break;
     end
     [lambda,gamma,phi]=MFVar(lambda,gamma,phi,W,alpha,eta);
     % The (n)th entry is the lower bound after the (n-1)th iteration.
-    L(i+2)=ELB(gamma,phi,alpha,beta);
+    L(i+2)=ELB(gamma,phi,alpha,beta,W);
     change=L(i+2)-L(i+1);
     i=i+1;
 end

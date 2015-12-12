@@ -4,21 +4,19 @@ clear all
 addpath('../lib');
 addpath('../data/ap/LDA_input');
 load('ZWD.mat'); % load pre-processed documents
-load('WO.mat'); % load the vocabulary
 W=ZWD;
 D=size(W,1); % number of documents
-N=size(W,2); % maximum length of documents
+V=size(W,2); % maximum length of documents
 K=3; % number of topics
-V=size(MO,1); % vocabulary size
 
 % Initialize alpha.
-alpha=zeros(K,1)+0.01;
+alpha=zeros(K,1)+1;
 
 % Initialize phi.
-phi=zeros(D,N,K)+1/K;
+phi=zeros(D,V,K)+1/K;
 
 % Initialize gamma.
-gamma=bsxfun(@plus,zeros(D,K),alpha')+N/K;
+gamma=bsxfun(@plus,zeros(D,K),alpha')+V/K;
 
 % Initialize eta and beta.
 eta=1;
@@ -34,7 +32,7 @@ lambda=ones(K,V)/V;
 
 % Set up stopping criteria.
 thresh=0.01;
-iter=0;
+iter=10;
 
 % Apply LDA with mean-field variational inference.
 [theta,z,beta,L,i]=LDA_VI(lambda,gamma,phi,W,alpha,eta,beta,thresh,iter);

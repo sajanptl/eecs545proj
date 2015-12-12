@@ -47,9 +47,26 @@ while(change>thresh)
     i=i+1;
 end
 
-% Obtain the estimated posterior distribution.
-theta=bsxfun(@times,gamma,1./sum(gamma,2));
-z=phi;
-beta=bsxfun(@times,lambda,1./sum(lambda,2));
+%update alpha and beta
+for topic=1:K
+    var_params.alpha(topic,:)=sum(var_params.gamma(:,topic));
+    var_params.beta(:,topic)=var_params.lambda(topic,:)/sum(var_params.lambda(topic,:));
+end    
+
+%update topic assignments
+for d=1:D
+    wdn_idx=find(A(:,d));
+    for i=1:length(wdn_idx)
+       [~,z_idx]=max(var_params.phi(d,wdn_idx(i),:));
+       var_params.z(i,d)=z_idx;
+    end
+end
+
+
+
+
+
+
+
 
 end

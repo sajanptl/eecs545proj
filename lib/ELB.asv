@@ -1,4 +1,4 @@
-function L=ELB(gamma,phi,alpha,beta)
+function L=ELB(gamma,phi,alpha,beta,W)
 
 % This function is used to calculate the evidence lower bound for LDA with
 % variational inference.
@@ -13,11 +13,12 @@ function L=ELB(gamma,phi,alpha,beta)
 %   phi -- attached parameter to per-word topic assignment (D-by-V-by-K)
 %   alpha -- parameter for V-dimensional Dirichlet distribution (K-by-1)
 %   beta -- topic distribution among words (K-by-V)
+%   W -- observed documents (D-by-V)
 %
 % Output:
 %   L -- evidence lower bound for documents (1-by-1)
 %
-% Author: Z. Luo
+% Author: Zheng Luo
 % Date: December 2015
 
 L1=gammaln(sum(alpha))-sum(gammaln(alpha))+...
