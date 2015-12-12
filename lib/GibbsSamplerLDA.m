@@ -36,7 +36,7 @@ N = length(WS);   % N - total number of words
 W = max(WS);   % W - number of distinct words in volcabulary
 
 % randomly assign each token to one topic
-Z = randi([1, T], 1, N);
+Z = randi([1, T], 1, N)';
 
 % update the Gibbs sampler
 for i = 1:N_round
@@ -52,11 +52,13 @@ end
 
 function reassign( Z, WS, DS, T, ALPHA, BETA)
 
-N = length(Z)
-for w = 1:N   % for every word
+N = length(Z);
+for i = 1:N   % for every word
+    disp(sprintf('Reassigning word %d of %d', i, N))
     p = zeros(T, 1);   % probability distribution for reassigning
     
-    d = DS(w);    % document d is the document containing word w
+    w = WS(i);    % token represented by word i
+    d = DS(i);    % document d is the document containing word i
     
     nd = sum(DS == d) - 1;   % number of words in document d (except current word) 
     

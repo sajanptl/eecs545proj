@@ -51,7 +51,7 @@ with open('data/ap/ap.txt', 'r') as infile:
             print token
             tokens.append(token)
 
-vectorizer = CountVectorizer(max_df=0.95, min_df=2, stop_words='english')
+vectorizer = CountVectorizer(max_df=0.95, min_df=20, stop_words='english')
 vectorizer.fit(tokens)
 X = vectorizer.transform(tokens)
 
