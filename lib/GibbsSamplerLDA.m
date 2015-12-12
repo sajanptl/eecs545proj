@@ -98,13 +98,12 @@ for i = 1:N   % for every word
 end
 
 % update WP
-WP = zeros(W, T);
 for i = 1:N         % for every word i
     w = WS(i);      % token represented by word i
     WP(w, Z(i)) = WP(w, Z(i)) + 1;
 end
 
 % calculate perplexity
-
+Per = 0;
 
 end

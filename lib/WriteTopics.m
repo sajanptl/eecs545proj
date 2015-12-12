@@ -45,12 +45,12 @@ for t = 1:totalTopics
 end
 
 for indexOfTopics = 1:totalTopics
-    for c = indexOfTopics:totoalTopics
+    for c = indexOfTopics:totalTopics
         nameOfTopicTitles = sprintf( '%s_%d' , 'TOPIC' , c );
         fprintf( textFile , '%25s\t%6.5f\t' , nameOfTopicTitles , probabilityTopicInAllTopics( c ) );     
     end
     for r=1:wordsPerTopics
-        for c=indexOfTopics:totoalTopics
+        for c=indexOfTopics:totalTopics
             index = Index_P_w_z( r , c );
             prob = sortProbabilityPerWordsPerTopic( r , c );
             fprintf( textFile , '%25s\t%6.5f\t' , WO{ index } , prob );           
