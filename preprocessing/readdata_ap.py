@@ -54,6 +54,9 @@ with open('data/ap/ap.txt', 'r') as infile:
 vectorizer = CountVectorizer(max_df=0.95, min_df=20, stop_words='english')
 vectorizer.fit(tokens)
 X = vectorizer.transform(tokens)
+sio.savemat('data/ap/LDA_input/W.mat',
+            mdict={'W': X},
+            oned_as='column')
 
 # Generate 3 matrices for LDA input
 

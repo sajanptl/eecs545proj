@@ -9,6 +9,7 @@ original_path = pwd
 cd('../data/ap/LDA_input/')
 load 'WS.mat'
 load 'DS.mat'
+load 'ZWD.mat'
 load 'WO.mat'
 
 cd(original_path)
@@ -20,7 +21,8 @@ BETA = 1;
 SEED = 3;
 
 cd('../lib/')
-[ WP,DP,Z ] = GibbsSamplerLDA( WS , DS , T , N_round , ALPHA , BETA , SEED)
-
+tic
+[ WP,DP,Z ] = GibbsSamplerLDA( WS , DS , ZWD, T , N_round , ALPHA , BETA , SEED)
+toc
 
 
