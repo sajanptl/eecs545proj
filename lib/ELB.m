@@ -30,14 +30,14 @@ my_buffer=bsxfun(@plus,psi(gamma),-psi(sum(gamma,2)));
 
 % Part 1 of the evidence lower bound.
 buffer=my_buffer;
-buffer=sum(buffer*(alpah-1));
+buffer=sum(buffer*(alpha-1));
 L1=D*(gammaln(sum(alpha))-sum(gammaln(alpha)))+buffer;
 
 % Part 2 of the evidence lower bound.
 buffer=my_buffer;
 L2=0;
 for d=1:D
-    L2=L2+sum(phi(:,:,d).*buffer(d,:)');
+    L2=L2+sum(phi(:,:,d)*buffer(d,:)');
 end
 
 % Part 3 of the evidence lower bound.
