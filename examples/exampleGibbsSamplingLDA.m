@@ -12,6 +12,9 @@ load 'DS.mat'
 load 'ZWD.mat'
 load 'WO.mat'
 
+% create training set and test set (for calculating perplexity)
+
+
 cd(original_path)
 
 T = 10;
