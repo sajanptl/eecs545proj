@@ -43,7 +43,7 @@ while(change>thresh)
     [lambda,gamma,phi]=MFVar(lambda,gamma,phi,W,alpha,eta);
     % The (n)th entry is the lower bound after the (n-1)th iteration.
     L(i+2)=ELB(gamma,phi,alpha,beta);
-    change=L(i+2)-L(i+1);
+    change=abs(L(i+2)-L(i+1));
     i=i+1;
 end
 
