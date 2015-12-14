@@ -92,7 +92,7 @@ if (nargout==1)
             index = Index_P_w_z( r , t );
             prob  = Sorted_P_w_z( r , t );
             cumprob = cumprob + prob;
-            word = WO{ index };
+            word = WO( index );
 
             if (cumprob < E) || (r==1)
                 if (r==1)

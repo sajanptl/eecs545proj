@@ -18,7 +18,7 @@ load 'WO.mat'
 cd(original_path)
 
 T = 10;
-N_round = 1;
+N_round = 300;
 ALPHA = 1;
 BETA = 1;
 SEED = 3;
@@ -28,5 +28,5 @@ tic
 [ WP,DP,Z ] = GibbsSamplerLDA( WS , DS , ZWD, T , N_round , ALPHA , BETA , SEED)
 toc
 
-WO = cellstr(WO)
+WO = cellstr(WO);
 
