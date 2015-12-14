@@ -25,10 +25,11 @@ def string_to_token(s):
     s = re.sub("[^a-zA-Z]", " ", s)
     # Convert to lower case, split into individual words
     words = s.lower().split()
-    # Convert stopwords list to a set for fast searching
-    ENGLISH_TOP_WORDS = set(stopwords.words("english"))
     # Remove stop words
-    words = [w for w in words if not w in ENGLISH_TOP_WORDS]
+    ENGLISH_STOP_WORDS = stopwords.words("english")
+    for w in ['would']:
+        ENGLISH_STOP_WORDS.append(w)
+    words = [w for w in words if not w in set(ENGLISH_STOP_WORDS)]
     # Join words with spaces in between and return the string
     return " ".join(words)
 
