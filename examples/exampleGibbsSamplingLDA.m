@@ -28,4 +28,5 @@ tic
 [ WP,DP,Z ] = GibbsSamplerLDA( WS , DS , ZWD, T , N_round , ALPHA , BETA , SEED)
 toc
 
+WO = cellstr(WO)
 
