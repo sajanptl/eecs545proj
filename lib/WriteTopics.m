@@ -27,7 +27,7 @@ for indexOfTopics=1:totalTopics
     topicTitle = sprintf( '%s_%d' , 'TOPIC' , indexOfTopics );
     fprintf( textFile , '%25s\t%6.5f\t' , topicTitle , probtopic( indexOfTopics ) );
 end
-
+fprintf( textFile , '\r\n\r\n' );
 for r=1:wordsPerTopics
     for indexOfTopics = 1:totalTopics
         index = indexPerWordPerTopics( r , indexOfTopics );
