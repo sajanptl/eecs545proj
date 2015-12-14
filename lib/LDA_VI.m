@@ -1,5 +1,5 @@
-function [theta,z,beta,L,i]=LDA_VI(lambda,gamma,phi,W,alpha,eta,beta,...
-    thresh,iter)
+function [alpha_new,z,beta_new,L,i]=LDA_VI(lambda,gamma,phi,W,alpha,eta,...
+    beta,thresh,iter)
 
 % This function applies LDA (latent Dirichlet allocation) with mean-field
 % variational inference.
@@ -24,13 +24,16 @@ function [theta,z,beta,L,i]=LDA_VI(lambda,gamma,phi,W,alpha,eta,beta,...
 %
 % Output:
 %   beta -- topic distribution among words (K-by-V)
-%   theta -- per-document topic propotions (D-by-K)
-%   z -- per-word topic assignment (D-by-N-by-K)
+%   z -- per-word topic assignment (D-by-V)
 %   L -- the evidence lower bound w.r.t. iterations
 %   i -- number of iterations
 %
 % Author: Z. Luo
 % Date: December 2015
+
+% Obtain the number of documents
+D=size(W,1);
+V=size(beta,2);
 
 % Run iterations with mean-field variational inference.
 change=inf;
@@ -47,9 +50,17 @@ while(change>thresh)
     i=i+1;
 end
 
-% Obtain the estimated posterior distribution.
-theta=bsxfun(@times,gamma,1./sum(gamma,2));
-z=phi;
-beta=bsxfun(@times,lambda,1./sum(lambda,2));
+% Obtain posterior distributions.
+alpha_new=sum(gamma,1)';
+beta_new=bsxfun(@times,lambda,1./sum(lambda,2));
+z=zeros(D,V);
+for d=1:D
+    idx=find(W(d,:));
+    len=length(idx);
+    for i=1:len
+       [~,z_value]=max(phi(d,idx(i),:));
+       z(d,i)=z_value;
+    end
+end
 
 end

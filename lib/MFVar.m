@@ -1,4 +1,4 @@
-function [lambda,gamma,phi]=MFVar(lambda,gamma,phi,W,alpha,eta)
+function [lambda_new,gamma_new,phi_new]=MFVar(lambda,gamma,phi,W,alpha,eta)
 
 % This function applies one iteration of mean-field variational inference
 % for LDA.
@@ -17,9 +17,9 @@ function [lambda,gamma,phi]=MFVar(lambda,gamma,phi,W,alpha,eta)
 %   eta -- parameter for K-dimensional Dirichlet distribution (1-by-1)
 %
 % Output:
-%   lambda -- attached parameter to topics (K-by-V)
-%   gamma -- attached parameter to per-document topic propotions (D-by-K)
-%   phi -- attached parameter to per-word topic assignment (D-by-V-by-K)
+%   lambda_new -- added parameter to topics (K-by-V)
+%   gamma_new -- added parameter to per-document topic propotions (D-by-K)
+%   phi_new -- added parameter to per-word topic assignment (D-by-V-by-K)
 %
 % Author: Z. Luo
 % Date: December 2015
@@ -32,27 +32,30 @@ V=size(W,2);
 % Update gamma and phi.
 indicator=zeros(D,V);
 indicator(W~=0)=1;
-for d=1:D       
+gamma_new=gamma;
+phi_new=phi;
+for d=1:D
     % update gamma
     for k=1:K
-        gamma(d,k)=alpha(k)+indicator(d,:)*phi(d,:,k)';
+        gamma_new(d,k)=alpha(k)+indicator(d,:)*phi(d,:,k)';
     end
     % update phi
     idx=find(W(d,:));
     for i=1:length(idx)
-        phi(d,i,:)=exp(psi(gamma(d,:)')+psi(lambda(:,i))-...
+        phi_new(d,i,:)=exp(psi(gamma_new(d,:)')+psi(lambda(:,i))-...
             psi(sum(lambda,2)));
-        % normalization
-        phi_sum=sum(phi(d,i,:));
+        % normalize phi
+        phi_sum=sum(phi_new(d,i,:));
         if (phi_sum>0)
-            phi(d,i,:)=phi(d,i,:)/phi_sum;
+            phi_new(d,i,:)=phi_new(d,i,:)/phi_sum;
         end
     end
 end
 
 % Update lambda.
+lambda_new=lambda;
 for k=1:K
-    lambda(k,:)=eta+sum(indicator.*phi(:,:,k),1);
+    lambda_new(k,:)=eta+sum(indicator.*phi_new(:,:,k),1);
 end
 
 end

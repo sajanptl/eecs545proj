@@ -37,7 +37,7 @@ L5=-sum(sum(sum(phi.*log(phi))));
 L=L1+L2+L3+L4+L5;
 %}
 
-
+beta=beta';
 
 J_t1=gammaln(sum(alpha))-sum(gammaln(alpha))+...
      dot((alpha-1),psi(sum(gamma,1)-psi(sum(sum(gamma)))));
