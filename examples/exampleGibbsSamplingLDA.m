@@ -17,11 +17,16 @@ load 'ZWD_test.mat'
 
 % create training set and test set (for calculating perplexity)
 
+[N, W, D, ND, NWD] = prepare_data(WS, ZWD, WO);
+
+[N_test, W_test, D_test, ND_test, NWD_test] = prepare_data(...
+    WS_test, ZWD_test, WO);
+
 
 cd(original_path)
 
 T = 5;
-N_round = 20;
+N_round = 1;
 ALPHA = 1;
 BETA = 0.01;
 SEED = 3;

@@ -1,0 +1,14 @@
+                  TOPIC_1	0.20354	                  TOPIC_2	0.20141	                  TOPIC_3	0.19746	                  TOPIC_4	0.19756	                  TOPIC_5	0.20004	
+
+                     said	0.03007	                     said	0.02612	                     said	0.03719	                     said	0.03100	                     said	0.03567	
+                    would	0.00723	                     bush	0.00718	                    would	0.00850	                     year	0.00565	                      new	0.00828	
+                     year	0.00563	                    would	0.00709	                     year	0.00576	                      new	0.00558	                  percent	0.00672	
+                      two	0.00502	                  percent	0.00587	                      one	0.00533	                   people	0.00555	                     year	0.00639	
+                      one	0.00450	                president	0.00552	                   people	0.00467	                     last	0.00518	                    years	0.00531	
+                  percent	0.00443	                     year	0.00535	                   police	0.00448	                    would	0.00474	                  million	0.00469	
+                   soviet	0.00436	                   people	0.00488	                    three	0.00442	                      one	0.00472	                    would	0.00465	
+                   united	0.00406	                      two	0.00479	                  million	0.00402	                     also	0.00462	                     also	0.00461	
+                     also	0.00402	                      one	0.00468	                  percent	0.00397	                      two	0.00461	                     last	0.00443	
+                      new	0.00396	                  dukakis	0.00440	                    state	0.00396	               government	0.00451	                   people	0.00441	
+
+

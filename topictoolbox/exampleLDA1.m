@@ -31,15 +31,14 @@ WSS = double(WS);
 DSS = double(DS);
 %WO = double(WO);
 WO = cellstr(WO);
-T = 10;
-N = 20;
-ALPHA = 1;
+T = 5;
+N = 5;
+ALPHA = 5;
 BETA = 0.01;
 SEED = 3;
 
 %%
 % Set the number of topics
-T=10; 
 
 %%
 % Set the hyperparameters
@@ -80,7 +79,7 @@ toc
 % end
 %%
 % Put the most 7 likely words per topic in cell structure S
-[S] = WriteTopics( WP , BETA , WO , 7 , 0.7 );
+%[S] = WriteTopics( WP , BETA , WO , 10 , 0.7 );
 
 fprintf( '\n\nMost likely words in the first ten topics:\n' );
 
@@ -90,7 +89,7 @@ fprintf( '\n\nMost likely words in the first ten topics:\n' );
 
 %%
 % Write the topics to a text file
-WriteTopics( WP , BETA , WO , 10 , 0.7 , 10 , 'topics10.txt' );
+WriteTopics( WP , BETA , WO , 10 , 0.7 , 5 , 'topics11.txt' );
 %WriteTopics( WP , BETA , WO , 'topics5.txt' );
 
 fprintf( '\n\nInspect the file ''topics.txt'' for a text-based summary of the topics\n' ); 
