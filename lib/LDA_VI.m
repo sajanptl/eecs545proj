@@ -23,9 +23,10 @@ function [alpha_new,z,beta_new,L,i]=LDA_VI(lambda,gamma,phi,W,alpha,eta,...
 %           this value
 %
 % Output:
-%   beta -- topic distribution among words (K-by-V)
+%   alpha_new -- updated alpha (K-by-1)
 %   z -- per-word topic assignment (D-by-V)
-%   L -- the evidence lower bound w.r.t. iterations
+%   beta_new -- topic distribution among words (K-by-V)
+%   L -- the evidence lower bound vs. iterations (including intial value)
 %   i -- number of iterations
 %
 % Author: Z. Luo

@@ -17,9 +17,9 @@ function [lambda_new,gamma_new,phi_new]=MFVar(lambda,gamma,phi,W,alpha,eta)
 %   eta -- parameter for K-dimensional Dirichlet distribution (1-by-1)
 %
 % Output:
-%   lambda_new -- added parameter to topics (K-by-V)
-%   gamma_new -- added parameter to per-document topic propotions (D-by-K)
-%   phi_new -- added parameter to per-word topic assignment (D-by-V-by-K)
+%   lambda_new -- updated lambda (K-by-V)
+%   gamma_new -- updated gamma (D-by-K)
+%   phi_new -- updated phi (D-by-V-by-K)
 %
 % Author: Z. Luo
 % Date: December 2015

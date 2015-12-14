@@ -3,7 +3,6 @@
 clear all
 addpath('../lib');
 load('../data/ap/LDA_input/W.mat'); % load pre-processed documents
-load('../data/ap/LDA_input/WO.mat');
 D=size(W,1); % number of documents
 V=size(W,2); % maximum length of documents
 K=5; % number of topics
@@ -44,10 +43,8 @@ iter=10;
 % Show results.
 plot(L);
 
-for i=1:K
-    %topic=beta_new(i,:);
-    topic=var_params.beta(:,i);
-    [topic,idx1]=sort(topic,'descend');
-    WO(idx1(1:10),:)
-    topic(1:10)
-end
+topic1=beta(1,:);
+[topic1,idx1]=sort(topic1,'descend');
+
+
+
