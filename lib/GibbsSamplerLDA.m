@@ -34,8 +34,8 @@ function [ WP,DP,Z,Per ] = GibbsSamplerLDA( WS , DS, WO, WS_test, ...
 %
 % Z - topic assignment for token k.
 
-[N, W, D] = prepare_data(WS, DS);
-[N_test, W_test, D_test] = prepare_data(WS_test, DS_test);
+[N, W, D] = data_size(WS, DS);
+[N_test, W_test, D_test] = data_size(WS_test, DS_test);
 
 
 % randomly assign each token to one topic
@@ -56,35 +56,30 @@ for i = 1:N_round
     [Z, WP, DP] = reassign(Z, WS, DS, WP, DP, T, ALPHA, BETA);  
  
     % Calculate perplexity
-    Per(i) = perplexity(WS_test, DS_test, WP, DP, T, ALPHA , BETA);   
-    disp(sprintf('Perplexity = %f', Per(i)))
+    if (rem(i-1, 1) == 0) 
+        Per(i) = perplexity(WS, DS, WP, DP, T, ALPHA , BETA);   
+        disp(sprintf('Perplexity = %f', Per(i)))
+    end
+    
+    % write topics
+    WriteTopics(WP, cellstr(WO), '../examples/topics.txt');
 end
 
 end
 
 %%
-function [N, W, D] = prepare_data(WS, DS)
+function [N, W, D] = data_size(WS, DS)
 
 N = length(DS);     % N - total number of words
 W = max(WS);        % W - number of distinct words in volcabulary
 D = max(DS);        % D - total number of documents
-
-% % number of words (tokens) in each document
-% ND = sum(ZWD ~= 0, 2);   
-% % times of word w occuring in document d
-% NWD = zeros(K, D);  
-% for w = 1:W
-%     for d = 1:D
-%         NWD(w, d) = sum(ZWD(d,:) == w);
-%     end
-% end
 
 end
 
 %%
 function [Z_new, WP_new, DP_new] = reassign( Z, WS, DS, WP, DP, T, ALPHA, BETA )
 
-[N, W, D] = prepare_data(WS, DS);
+[N, W, D] = data_size(WS, DS);
 Z_new = zeros(N, 1);
 for i = 1:N   % for every word
     p = zeros(T, 1);   % probability distribution for reassigning
@@ -151,4 +146,20 @@ for i = 1:N            % for every word
 end
 per = exp(-per/N);
 
+% for t = 1:T
+%     per = per + log_multinomial_beta(WP(:,t)+BETA) - log_multinomial_beta(ones(1,W)*BETA);
+% end;
+
+end
+
+%%
+function b = log_multinomial_beta(alpha)
+% compute log of multinomial beta function, a multivariate extension of
+% beta function
+L = length(alpha);
+b = 0;
+for i=1:L
+    b = b + (gammaln(alpha(i)));
+end;
+b = b-gammaln(sum(alpha));
 end

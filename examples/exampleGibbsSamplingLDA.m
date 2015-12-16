@@ -10,16 +10,14 @@ cd('../data/ap/LDA_input/')
 load 'WS.mat'
 load 'DS.mat'
 load 'WO.mat'
-load 'WS_test.mat'
-load 'DS_test.mat'
 
 cd(original_path)
 
-T = 5;
-N_round = 5;
+T = 5;          % number of topics
+N_round = 30;   % number of iterations
 ALPHA = 5;
-BETA = 0.01;
-SEED = 3;
+BETA = 0.1;
+SEED = 3;       % seed 
 
 cd('../lib/')
 tic
@@ -28,9 +26,9 @@ tic
 toc
 cd(original_path)
 
-cd('../lib/')
-WO = cellstr(WO);
-WriteTopics(WP, WO, '../examples/topics.txt');
-cd(original_path)
+% cd('../lib/')
+% WO = cellstr(WO);
+% WriteTopics(WP, WO, '../examples/topics.txt');
+% cd(original_path)
 
 
