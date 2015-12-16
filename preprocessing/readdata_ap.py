@@ -27,7 +27,7 @@ def string_to_token(s):
     words = s.lower().split()
     # Remove stop words
     ENGLISH_STOP_WORDS = stopwords.words("english")
-    for w in ['would']:
+    for w in ['would', 'also', 'said', 're']:
         ENGLISH_STOP_WORDS.append(w)
     words = [w for w in words if not w in set(ENGLISH_STOP_WORDS)]
     # Join words with spaces in between and return the string
