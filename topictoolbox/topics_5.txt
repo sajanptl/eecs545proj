@@ -1,0 +1,14 @@
+                  TOPIC_1	0.21804	                  TOPIC_2	0.18591	                  TOPIC_3	0.19962	                  TOPIC_4	0.19050	                  TOPIC_5	0.20593	
+
+                     said	0.02579	                     said	0.05447	                     said	0.03699	                  percent	0.02555	                     said	0.02834	
+                     bush	0.01315	                   police	0.01403	                    court	0.00885	                  million	0.01958	               government	0.01521	
+                president	0.00919	                   people	0.01210	                    years	0.00765	                     said	0.01549	                   soviet	0.01362	
+                    house	0.00852	                      one	0.01198	                  federal	0.00562	                     year	0.01402	                   united	0.01159	
+                      new	0.00709	                      two	0.01147	                     case	0.00559	                  billion	0.01209	                   states	0.01012	
+                     time	0.00605	                     city	0.00734	                     year	0.00525	                      new	0.01112	                president	0.00950	
+                    going	0.00599	                    three	0.00659	                     also	0.00503	                  company	0.00985	                    party	0.00869	
+                       re	0.00597	                      air	0.00655	                   school	0.00489	                   market	0.00849	                    union	0.00798	
+                      one	0.00585	                officials	0.00593	                    state	0.00487	                     last	0.00723	                 military	0.00749	
+                   reagan	0.00535	                   killed	0.00557	                     drug	0.00476	                    stock	0.00664	                     also	0.00729	
+
+

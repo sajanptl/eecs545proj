@@ -13,6 +13,9 @@ load 'WO.mat'
 load 'WS_test.mat'
 load 'DS_test.mat'
 
+load 'ZWD_test.mat'
+
+
 cd(original_path)
 
 T = 5;
