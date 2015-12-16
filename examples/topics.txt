@@ -1,12 +1,12 @@
-                  TOPIC_1	0.18868	                  TOPIC_2	0.18424	                  TOPIC_3	0.17883	                  TOPIC_4	0.20836	                  TOPIC_5	0.23990	
+                  TOPIC_1	0.20131	                  TOPIC_2	0.19853	                  TOPIC_3	0.20120	                  TOPIC_4	0.19933	                  TOPIC_5	0.19963	
 
-                     said	0.03710	                  percent	0.02490	                     said	0.04518	                     said	0.03613	                     said	0.02239	
-                   police	0.01261	                  million	0.01388	                   people	0.00828	                      one	0.00752	                president	0.01410	
-                    court	0.00884	                     year	0.01363	                      new	0.00649	                    years	0.00668	                     bush	0.01138	
-                     year	0.00868	                     said	0.01322	                     city	0.00637	                     time	0.00610	                   soviet	0.01100	
-                      two	0.00840	                  billion	0.01192	                    state	0.00562	                       re	0.00534	               government	0.00981	
-                      one	0.00700	                      new	0.01185	                      two	0.00538	                     like	0.00460	                    party	0.00716	
-                     last	0.00571	                   market	0.00837	                     also	0.00513	                      air	0.00439	                   states	0.00647	
-                    three	0.00568	                     last	0.00656	                officials	0.00496	                     says	0.00432	                   united	0.00635	
-                     case	0.00546	                    stock	0.00656	                     fire	0.00475	                   school	0.00422	                 military	0.00563	
-                    years	0.00543	                   prices	0.00594	                      one	0.00471	                    going	0.00420	                political	0.00542	
+                     said	0.02988	                     said	0.03055	                     said	0.03073	                     said	0.03335	                     said	0.02757	
+                  percent	0.00494	                     year	0.00674	                     year	0.00575	                      new	0.00634	                     year	0.00505	
+                      new	0.00467	                  percent	0.00475	                  percent	0.00448	                  percent	0.00514	                      one	0.00495	
+                     year	0.00450	                      one	0.00441	                      new	0.00447	                      one	0.00490	                      new	0.00441	
+                     last	0.00447	                      new	0.00439	                  million	0.00431	                      two	0.00479	                   people	0.00440	
+                      one	0.00444	                   people	0.00439	                      two	0.00425	                     year	0.00469	                     also	0.00422	
+                      two	0.00436	                      two	0.00421	                     also	0.00422	                   people	0.00442	                president	0.00395	
+                     also	0.00397	                  million	0.00413	                      one	0.00416	                president	0.00438	                  percent	0.00394	
+               government	0.00380	               government	0.00377	                president	0.00409	               government	0.00378	                  million	0.00385	
+                   people	0.00355	                president	0.00368	                     last	0.00370	                     also	0.00344	               government	0.00375	

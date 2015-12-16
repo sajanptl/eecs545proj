@@ -3,8 +3,8 @@
 % Author: Xiang Li
 % 12/10/2015
 
-function [ WP,DP,Z,Per ] = GibbsSamplerLDA( WS , DS , ZWD, WO, WS_test, ...
-    DS_test, ZWD_test, T , N_round , ALPHA , BETA)
+function [ WP,DP,Z,Per ] = GibbsSamplerLDA( WS , DS, WO, WS_test, ...
+    DS_test, T , N_round , ALPHA , BETA)
 % Input:
 % WS - N x 1 vector where WS(k) contains the vocabulary index of the kth
 % word token, and N is the number of word tokens. The word indices are not zero
@@ -34,8 +34,8 @@ function [ WP,DP,Z,Per ] = GibbsSamplerLDA( WS , DS , ZWD, WO, WS_test, ...
 %
 % Z - topic assignment for token k.
 
-[N, W, D] = prepare_data(WS, ZWD, WO);
-[N_test, W_test, D_test] = prepare_data(WS_test, ZWD_test, WO);
+[N, W, D] = prepare_data(WS, DS);
+[N_test, W_test, D_test] = prepare_data(WS_test, DS_test);
 
 
 % randomly assign each token to one topic
@@ -56,20 +56,18 @@ for i = 1:N_round
     [Z, WP, DP] = reassign(Z, WS, DS, WP, DP, T, ALPHA, BETA);  
  
     % Calculate perplexity
-%     Per(i) = perplexity(WS_test, DS_test, ND_test, NWD_test, WP, T, ALPHA , BETA);   
-    
-%     disp(sprintf('Perplexity = %f', Per(i)))
+    Per(i) = perplexity(WS_test, DS_test, WP, DP, T, ALPHA , BETA);   
+    disp(sprintf('Perplexity = %f', Per(i)))
 end
-
 
 end
 
 %%
-function [N, W, D] = prepare_data(WS, ZWD, WO)
+function [N, W, D] = prepare_data(WS, DS)
 
-N = length(WS);     % N - total number of words
-W = length(WO);     % W - number of distinct words in volcabulary
-D = size(ZWD, 1);    % D - total number of documents
+N = length(DS);     % N - total number of words
+W = max(WS);        % W - number of distinct words in volcabulary
+D = max(DS);        % D - total number of documents
 
 % % number of words (tokens) in each document
 % ND = sum(ZWD ~= 0, 2);   
@@ -86,7 +84,7 @@ end
 %%
 function [Z_new, WP_new, DP_new] = reassign( Z, WS, DS, WP, DP, T, ALPHA, BETA )
 
-N = length(Z);
+[N, W, D] = prepare_data(WS, DS);
 Z_new = zeros(N, 1);
 for i = 1:N   % for every word
     p = zeros(T, 1);   % probability distribution for reassigning
@@ -113,12 +111,9 @@ for i = 1:N   % for every word
     nwj = WP(w,:) - Zi;
 %     p = (nwd + BETA) / (nd + N*BETA) * (nwj + ALPHA) ./ (nj + T*ALPHA);
     dp = DP(d,:)- Zi;
-    p = (dp + ALPHA) .* (nwj + BETA) ./ (nj + T*BETA);
-    
+    p = (dp + ALPHA) .* (nwj + BETA) ./ (nj + double(W*BETA));
     p = p / sum(p);
-    if (min(p) < 0)
-        p
-    end
+    
     Z_new(i) = randsample(1:T, 1, true, p);
 end
 
@@ -137,6 +132,7 @@ end
 function per = perplexity( WS_test, DS_test, WP, DP, T, ALPHA , BETA)
 
 N = length(WS_test);
+W = size(WP, 1);
 per = 0;
 for i = 1:N            % for every word
     w = WS_test(i);    % token represented by word i
@@ -146,12 +142,12 @@ for i = 1:N            % for every word
     nj = sum(WP);
     nwj = WP(w, :);
     dp = DP(d,:);
-    ndp = 
-    p = log10( (dp + T*ALPHA) ./ (dp + ALPHA).* ...
-        (nwj + BETA) ./ (nj + T*BETA) );
+%     dp_sum = sum(DP);
+    p = (dp + ALPHA) / (sum(dp) + T*ALPHA).* ...
+        (nwj + BETA) ./ (nj + W*BETA);
 
-    per = per + sum(p);
+    per = per + log(sum(p));
 end
-per = 10^(-per/N);
+per = exp(-per/N);
 
 end
