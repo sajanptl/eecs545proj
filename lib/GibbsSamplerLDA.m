@@ -3,8 +3,7 @@
 % Author: Xiang Li
 % 12/10/2015
 
-function [ WP,DP,Z,Per ] = GibbsSamplerLDA( WS , DS, WO, WS_test, ...
-    DS_test, T , N_round , ALPHA , BETA)
+function [ WP,DP,Z,Per ] = GibbsSamplerLDA( WS , DS, T , N_round , ALPHA , BETA, SEED)
 % Input:
 % WS - N x 1 vector where WS(k) contains the vocabulary index of the kth
 % word token, and N is the number of word tokens. The word indices are not zero
@@ -34,9 +33,9 @@ function [ WP,DP,Z,Per ] = GibbsSamplerLDA( WS , DS, WO, WS_test, ...
 %
 % Z - topic assignment for token k.
 
-[N, W, D] = data_size(WS, DS);
-[N_test, W_test, D_test] = data_size(WS_test, DS_test);
+rng(SEED)
 
+[N, W, D] = data_size(WS, DS);
 
 % randomly assign each token to one topic
 Z = randi([1, T], 1, N)';
@@ -55,14 +54,9 @@ for i = 1:N_round
     % update the Gibbs sampler
     [Z, WP, DP] = reassign(Z, WS, DS, WP, DP, T, ALPHA, BETA);  
  
-    % Calculate perplexity
-    if (rem(i-1, 1) == 0) 
-        Per(i) = perplexity(WS, DS, WP, DP, T, ALPHA , BETA);   
-        disp(sprintf('Perplexity = %f', Per(i)))
-    end
-    
-    % write topics
-    WriteTopics(WP, cellstr(WO), '../examples/topics.txt');
+    % calculate perplexity
+    Per(i) = perplexity(WS, DS, WP, DP, T, ALPHA , BETA);   
+    disp(sprintf('Perplexity = %f', Per(i)))
 end
 
 end
@@ -86,25 +80,12 @@ for i = 1:N   % for every word
 
     w = WS(i);    % token represented by word i
     d = DS(i);    % document d is the document containing word i
-%     nd = ND(d) - 1;   % number of words in document d (except current word)
-%     % times of token w occuring in document d (except current word)
-%     nwd = NWD(w,d) - 1;   
     
-%     for j = 1:T  % for every topic
-%         % total number of words in topic j (except current word)
-%         nj = sum(WP(:, j)) - (Z(i)==j);  
-%         % times of token w assigned to topic j (except current word)
-%         nwj = WP(w, j) - (Z(i)==j);   
-%         p(j) = (nwd + BETA) / (nd + N*BETA) * (nwj + ALPHA) / (nj + T*ALPHA);
-%     end
-    
-    % vectorized version
     Zi = Z(i) == (1:T);
     % total number of words in topic j (except current word)
     nj = sum(WP) - Zi;
     % times of token w assigned to topic j (except current word)
     nwj = WP(w,:) - Zi;
-%     p = (nwd + BETA) / (nd + N*BETA) * (nwj + ALPHA) ./ (nj + T*ALPHA);
     dp = DP(d,:)- Zi;
     p = (dp + ALPHA) .* (nwj + BETA) ./ (nj + double(W*BETA));
     p = p / sum(p);
@@ -112,7 +93,7 @@ for i = 1:N   % for every word
     Z_new(i) = randsample(1:T, 1, true, p);
 end
 
-% update WP
+% update WP & DP
 WP_new = zeros(size(WP));
 DP_new = zeros(size(DP));
 for i = 1:N         % for every word i
@@ -121,45 +102,4 @@ for i = 1:N         % for every word i
     DP_new(DS(i), Z_new(i)) = DP_new(DS(i), Z_new(i)) + 1;
 end
 
-end
-
-%%
-function per = perplexity( WS_test, DS_test, WP, DP, T, ALPHA , BETA)
-
-N = length(WS_test);
-W = size(WP, 1);
-per = 0;
-for i = 1:N            % for every word
-    w = WS_test(i);    % token represented by word i
-    d = DS_test(i);    % document d is the document containing word i
-    
-    % vectorize
-    nj = sum(WP);
-    nwj = WP(w, :);
-    dp = DP(d,:);
-%     dp_sum = sum(DP);
-    
-    p = (dp + ALPHA) / (sum(dp) + T*ALPHA).* ...
-        (nwj + BETA) ./ (nj + W*BETA);
-
-    per = per + log(sum(p));
-end
-per = exp(-per/N);
-
-% for t = 1:T
-%     per = per + log_multinomial_beta(WP(:,t)+BETA) - log_multinomial_beta(ones(1,W)*BETA);
-% end;
-
-end
-
-%%
-function b = log_multinomial_beta(alpha)
-% compute log of multinomial beta function, a multivariate extension of
-% beta function
-L = length(alpha);
-b = 0;
-for i=1:L
-    b = b + (gammaln(alpha(i)));
-end;
-b = b-gammaln(sum(alpha));
 end
