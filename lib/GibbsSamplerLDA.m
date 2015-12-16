@@ -143,6 +143,7 @@ for i = 1:N            % for every word
     nwj = WP(w, :);
     dp = DP(d,:);
 %     dp_sum = sum(DP);
+    
     p = (dp + ALPHA) / (sum(dp) + T*ALPHA).* ...
         (nwj + BETA) ./ (nj + W*BETA);
 
