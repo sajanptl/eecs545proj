@@ -6,6 +6,7 @@
 \usepackage{algorithm}
 \usepackage{amsmath}
 
+
 \usepackage[noend]{algpseudocode}
 \usepackage{subcaption}
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
@@ -212,7 +213,15 @@ To evaluate our algorithm, we replicated one of the experiments implemented by B
 \subsection{Metrics and Results}
 In AP dataset, each document is unlabeled. Therefore, here we are doing unsupervised learning with a purpose to estimate the likelihood of the test dataset. In natural language processing, the likelihood of a document is usually called perplexity, which is the inverse of the average per-word log likelihood. The perplexity of on the text corpus is defined by
 
-Describe perplexity here (need help with Yan).
+Describe perplexity here:
+
+\begin{align*}
+perplexity(D_{test}) &= \exp\Big\{{-\frac{\sum_{d=1}^{M} \log{p(w_d)}}{\sum_{d=1}^{M}N_d}}\Big\}\\
+& = \exp \Big\{ -\frac{1}{N}\sum_{d=1}^{D}\sum_{i=1}^{N_d}N_{di}\log \sum_{k=1}^{K}\theta_{w_{di}, k}\phi_{d,k} \Big\}
+\end{align*}
+
+$$\text{where, }\theta_{v,k} = \frac{C_{vk}+\beta}{\sum_{v'}C_{v' k}+\beta}, \phi_{d,k} = \frac{C_{dk+\alpha}}{\sum_{k'}C_{dk'}+K\alpha}$$
+
 
 While implementing our algorithms, we first monitors the convergence of the algorithm. This was done by monitoring the perplexity (defined below) of training data, as shown Figure 3. We can see that in both cases the algorithm converges after enough number of iterations, although the numbers of iterations required to reach convergence are very different.
 
