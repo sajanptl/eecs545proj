@@ -7,6 +7,7 @@
 \usepackage{amsmath}
 
 \usepackage[noend]{algpseudocode}
+\usepackage{subcaption}
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
 
 
@@ -23,7 +24,7 @@ Xiang Li\\
 Zheng Luo \\
 %University of Michigan\\
 %Ann Arbor, MI 48109 \\
-\texttt{zlou@umich.edu} \\
+\texttt{zluo@umich.edu} \\
 \AND
 Yan Chen\\
 %University of Michigan\\
@@ -61,9 +62,9 @@ Sajan Patel\\
 \maketitle
 
 \begin{abstract}
-Abstract goes here. Talk about how LDA can be used for topic modeling. Our method and implementation is 
-built on the Blei et. al. JMLR paper. We recreated the experiment for document modeling from the paper. 
-We also applied LDA to the Yelp Dataset. We present our implementation of the method, experiment, and 
+Abstract goes here. Talk about how LDA can be used for topic modeling. Our method and implementation is
+built on the Blei et. al. JMLR paper. We recreated the experiment for document modeling from the paper.
+We also applied LDA to the Yelp Dataset. We present our implementation of the method, experiment, and
 our analysis of the results in this paper.
 %The abstract paragraph should be indented 1/2~inch (3~picas) on both left and
 %right-hand margins. Use 10~point type, with a vertical spacing of 11~points.
@@ -100,21 +101,21 @@ The latent Dirichlet allocation (LDA) model explains the generation of text docu
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{graphmodel}
+    \includegraphics[width=0.6\textwidth]{graphmodel}
     \caption{Graphic model of LDA. The boxes are ``plates'' representing replicates. The outer plate represents documents, while the inner plate represents the repeated choice of topics and words within a document.}
     \label{fig:graphmodel}
 \end{figure}
 
 
-This is the generative model for a collection of documents. LDA then tries to backtrack from the (training) documents to find a set of topics that are likely to have generated the collection. Now the question is how does LDA backtrack to find the parameters in this model. Suppose we have a set of documents D, and we set the number of topics to be K. What we want is to use LDA to learn two things 1) the topic representation of each document and 2) the words associated to each topic. 
+This is the generative model for a collection of documents. LDA then tries to backtrack from the (training) documents to find a set of topics that are likely to have generated the collection. Now the question is how does LDA backtrack to find the parameters in this model. Suppose we have a set of documents D, and we set the number of topics to be K. What we want is to use LDA to learn two things 1) the topic representation of each document and 2) the words associated to each topic.
 
 There are two methods to learn these two things: collapsed Gibbs sampling [1] and variational inference [2, 3]. We first discuss Gibbs sampling method here:
 
 
 \subsection{Gibbs Sampling Method}
 \begin{itemize}
-\item For each document, randomly assign each word in the document to one of the $K$ topics. 
-\begin{enumerate} 
+\item For each document, randomly assign each word in the document to one of the $K$ topics.
+\begin{enumerate}
 \item this step gives topic representation of all the documents
 \item this step gives word distributions of all the topics
 \item since randomly assign topics to each word is very native, so we need to improve it
@@ -168,55 +169,75 @@ Show derivation and algorithm
 \section{Our Implementation}
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{vi}
+    \includegraphics[width=0.6\textwidth]{vi}
     \caption{Graphical model representation of the variational distribution used to approximate the posterior in LDA.}
     \label{fig:graphmodel}
 \end{figure}
 
-\section{Experimental Evaluation}
-\subsection{Setup}
-Describe recreation of Document Modeling and Yelp experiment from Blei et. al. here.
 
-\subsection{Metrics}
-Describe perplexity here.
+\section{Evaluations and Empirical Results}
+\subsection{Dataset}
+To evaluate our algorithm, we replicated one of the experiments implemented by Blei et al. on document modeling. We used AP dataset which contains 2346 (verify this number) news articles from the associated press [5]. The dataset was partitioned in to 80 percent training set and 20 percent test data.
 
-\subsection{Results}
-Show graphs of the perplexity and histogram of topics.
+\subsection{Metrics and Results}
+In AP dataset, each document is unlabeled. Therefore, here we are doing unsupervised learning with a purpose to estimate the likelihood of the test dataset. In natural language processing, the likelihood of a document is usually called perplexity, which is the inverse of the average per-word log likelihood. The perplexity of on the text corpus is defined by
 
-Discuss results in table if also needed.
+Describe perplexity here (need help with Yan).
 
-Also compare gibbs vs inference in each.
+While implementing our algorithms, we first monitors the convergence of the algorithm. This was done by monitoring the perplexity (defined below) of training data, as shown Figure 3. We can see that in both cases the algorithm converges after enough number of iterations, although the numbers of iterations required to reach convergence are very different.
+
+\begin{figure}
+\begin{subfigure}[b]{.5\linewidth}
+\centering
+\includegraphics[width=1\textwidth]{AP_topics_10_GS_Perplexity}
+\end{subfigure}%
+\begin{subfigure}[b]{.5\linewidth}
+\centering
+\includegraphics[width=1\textwidth]{AP_topics_10_VI_Perplexity}
+\end{subfigure}
+\caption{Convergence of LDA using Gibbs Sampling (\textit{left}) and Variational Inference (\textit{right})}\label{fig:convergence}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{topics}
+    \caption{List of topics generated by LDA.}
+    \label{fig:topics}
+\end{figure}
 
 \section{Conclusion}
-Discuss the subsequent conclusions we gained from this reimplementation of LDA. 
+Discuss the subsequent conclusions we gained from this reimplementation of LDA.
 Summarize advantages and disadvantages as well.
 
-\subsubsection*{Acknowledgements}
+\subsubsection*{Author Contributions}
 Describe efforts and work division here.
 %\subsubsection*{Acknowledgments}
 %
 %Use unnumbered third level headings for the acknowledgments. All
-%acknowledgments go at the end of the paper. Do not include 
-%acknowledgments in the anonymized submission, only in the 
-%final paper. 
+%acknowledgments go at the end of the paper. Do not include
+%acknowledgments in the anonymized submission, only in the
+%final paper.
 
 \subsubsection*{References}
 
 %References follow the acknowledgments. Use unnumbered third level heading for
 %the references. Any choice of citation style is acceptable as long as you are
-%consistent. It is permissible to reduce the font size to `small' (9-point) 
+%consistent. It is permissible to reduce the font size to `small' (9-point)
 %when listing the references. {\bf Remember that this year you can use
 %a ninth page as long as it contains \emph{only} cited references.}
 
 \small{
 
-[1]. Griffiths, Tom, and Mark Steyvers. "A probabilistic approach to semantic representation." Proceedings of the 24th annual conference of the cognitive science society. 2002.\\
+[1]. Griffiths, Tom, and Mark Steyvers. "A probabilistic approach to semantic representation." Proceedings of the 24th annual conference of the cognitive science society. 2002.
 
-[2]. Jordan, Michael I., et al. "An introduction to variational methods for graphical models." Machine learning 37.2 (1999): 183-233.\\
+[2]. Jordan, Michael I., et al. "An introduction to variational methods for graphical models." Machine learning 37.2 (1999): 183-233.
 
 [3]. Teh, Yee Whye, et al. "Hierarchical dirichlet processes." Journal of the american statistical association 101.476 (2006).
 
 [4]. Blei, David M., Andrew Y. Ng, and Michael I. Jordan. "Latent dirichlet allocation." the Journal of machine Learning research 3 (2003): 993-1022.
+
+[5] \url{http://www.cs.columbia.edu/~blei/lda-c/}. It should be noted that the size of the dataset here is about one eighth of the dataset used by Blei et al. So there might be some discrepancy between our result and those presented in Blei et al.
 
 %
 %[2] Bower, J.M. \& Beeman, D. (1995) {\it The Book of GENESIS: Exploring
@@ -231,7 +252,7 @@ Describe efforts and work division here.
 
 
 
-%NIPS requires electronic submissions.  The electronic submission site is  
+%NIPS requires electronic submissions.  The electronic submission site is
 %\begin{center}
 %   \url{http://papers.nips.cc}
 %\end{center}
@@ -245,7 +266,7 @@ Describe efforts and work division here.
 %including figures. Since 2009 an additional ninth page \textit{containing only
 %cited references} is allowed. Papers that exceed nine pages will not be
 %reviewed, or in any other way considered for presentation at the conference.
-%%This is a strict upper bound. 
+%%This is a strict upper bound.
 %
 %Please note that this year we have introduced automatic line number generation
 %into the style file (for \LaTeXe and Word versions). This is to help reviewers
@@ -254,7 +275,7 @@ Describe efforts and work division here.
 %style file for the final version of accepted papers.
 %
 %The margins in 2014 are the same as since 2007, which allow for $\approx 15\%$
-%more words in the paper compared to earlier years. We are also again using 
+%more words in the paper compared to earlier years. We are also again using
 %double-blind reviewing. Both of these require the use of new style files.
 %
 %Authors are required to use the NIPS \LaTeX{} style files obtainable at the
@@ -263,8 +284,8 @@ Describe efforts and work division here.
 
 %% \subsection{Double-blind reviewing}
 
-%% This year we are doing double-blind reviewing: the reviewers will not know 
-%% who the authors of the paper are. For submission, the NIPS style file will 
+%% This year we are doing double-blind reviewing: the reviewers will not know
+%% who the authors of the paper are. For submission, the NIPS style file will
 %% automatically anonymize the author list at the beginning of the paper.
 
 %% Please write your paper in such a way to preserve anonymity. Refer to
@@ -289,7 +310,7 @@ Describe efforts and work division here.
 %%
 %% Note that your submission is only valid if you get an e-mail
 %% confirmation from the server. If you do not get such an e-mail, please
-%% try uploading again. 
+%% try uploading again.
 
 
 %\subsection{Retrieval of style files}
@@ -298,7 +319,7 @@ Describe efforts and work division here.
 %\begin{center}
 %   \url{http://www.nips.cc/}
 %\end{center}
-%The file \verb+nips2014.pdf+ contains these 
+%The file \verb+nips2014.pdf+ contains these
 %instructions and illustrates the
 %various formatting requirements your NIPS paper must satisfy. \LaTeX{}
 %users can choose between two style files:
@@ -369,12 +390,12 @@ Describe efforts and work division here.
 %references themselves, any style is acceptable as long as it is used
 %consistently.
 %
-%As submission is double blind, refer to your own published work in the 
+%As submission is double blind, refer to your own published work in the
 %third person. That is, use ``In the previous work of Jones et al.\ [4]'',
 %not ``In our previous work [4]''. If you cite your other papers that
 %are not widely available (e.g.\ a journal paper under review), use
 %anonymous author names in the citation, e.g.\ an author of the
-%form ``A.\ Anonymous''. 
+%form ``A.\ Anonymous''.
 %
 %
 %\subsection{Footnotes}
@@ -396,7 +417,7 @@ Describe efforts and work division here.
 %Make sure the figure caption does not get separated from the figure.
 %Leave sufficient space to avoid splitting the figure and figure caption.
 %
-%You may use color figures. 
+%You may use color figures.
 %However, it is best for the
 %figure captions and the paper body to make sense if the paper is printed
 %either in black/white or in color.
@@ -465,30 +486,30 @@ Describe efforts and work division here.
 %\begin{itemize}
 %
 %\item Consider directly generating PDF files using \verb+pdflatex+
-%(especially if you are a MiKTeX user). 
+%(especially if you are a MiKTeX user).
 %PDF figures must be substituted for EPS figures, however.
 %
 %\item Otherwise, please generate your PostScript and PDF files with the following commands:
-%\begin{verbatim} 
+%\begin{verbatim}
 %dvips mypaper.dvi -t letter -Ppdf -G0 -o mypaper.ps
 %ps2pdf mypaper.ps mypaper.pdf
 %\end{verbatim}
 %
-%Check that the PDF files only contains Type 1 fonts. 
+%Check that the PDF files only contains Type 1 fonts.
 %%For the final version, please send us both the Postscript file and
-%%the PDF file. 
+%%the PDF file.
 %
-%\item xfig "patterned" shapes are implemented with 
-%bitmap fonts.  Use "solid" shapes instead. 
+%\item xfig "patterned" shapes are implemented with
+%bitmap fonts.  Use "solid" shapes instead.
 %\item The \verb+\bbold+ package almost always uses bitmap
 %fonts.  You can try the equivalent AMS Fonts with command
 %\begin{verbatim}
 %\usepackage[psamsfonts]{amssymb}
 %\end{verbatim}
-% or use the following workaround for reals, natural and complex: 
+% or use the following workaround for reals, natural and complex:
 %\begin{verbatim}
 %\newcommand{\RR}{I\!\!R} %real numbers
-%\newcommand{\Nat}{I\!\!N} %natural numbers 
+%\newcommand{\Nat}{I\!\!N} %natural numbers
 %\newcommand{\CC}{I\!\!\!\!C} %complex numbers
 %\end{verbatim}
 %
@@ -529,27 +550,27 @@ Describe efforts and work division here.
 %
 %\end{itemize}
 %If your file contains Type 3 fonts or non embedded TrueType fonts, we will
-%ask you to fix it. 
+%ask you to fix it.
 %
 %\subsection{Margins in LaTeX}
-% 
+%
 %Most of the margin problems come from figures positioned by hand using
 %\verb+\special+ or other commands. We suggest using the command
 %\verb+\includegraphics+
 %from the graphicx package. Always specify the figure width as a multiple of
 %the line width as in the example below using .eps graphics
 %\begin{verbatim}
-%   \usepackage[dvips]{graphicx} ... 
-%   \includegraphics[width=0.8\linewidth]{myfile.eps} 
+%   \usepackage[dvips]{graphicx} ...
+%   \includegraphics[width=0.8\linewidth]{myfile.eps}
 %\end{verbatim}
 %or % Apr 2009 addition
 %\begin{verbatim}
-%   \usepackage[pdftex]{graphicx} ... 
-%   \includegraphics[width=0.8\linewidth]{myfile.pdf} 
+%   \usepackage[pdftex]{graphicx} ...
+%   \includegraphics[width=0.8\linewidth]{myfile.pdf}
 %\end{verbatim}
-%for .pdf graphics. 
-%See section 4.4 in the graphics bundle documentation (\url{http://www.ctan.org/tex-archive/macros/latex/required/graphics/grfguide.ps}) 
-% 
+%for .pdf graphics.
+%See section 4.4 in the graphics bundle documentation (\url{http://www.ctan.org/tex-archive/macros/latex/required/graphics/grfguide.ps})
+%
 %A number of width problems arise when LaTeX cannot properly hyphenate a
 %line. Please give LaTeX hyphenation hints using the \verb+\-+ command.
 

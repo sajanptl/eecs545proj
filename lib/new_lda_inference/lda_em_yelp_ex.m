@@ -19,7 +19,7 @@ V=size(W,2);
 K=10;
 
 % Initialize alpha and beta.
-alpha=ones(K,1);
+alpha=0.05*ones(K,1);
 eta=ones(V,1);
 beta=zeros(K,V);
 for k=1:K
@@ -27,7 +27,7 @@ for k=1:K
     beta(k,:)=(beta(k,:)+realmin);
 end
 beta=bsxfun(@times,beta,1./sum(beta,2));
-smooth=0.00001;
+smooth=0.005;
 
 % Apply LDA with variational inference.
 tic
