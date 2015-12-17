@@ -146,7 +146,11 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 
 
 \subsection{Inference Method}
-With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution q over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence. However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
+With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution q over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence:\\
+$D(q(\theta,Z|\gamma,\phi)||p(\theta,Z|W,\alpha,\beta))$ = log $p(W|\alpha,\beta)$ - $L(\gamma,\phi;\alpha,\beta)$\\
+where\\
+$L(\gamma,\phi;\alpha,\beta)$ = $E_q$[log $p(\theta,Z,W|\alpha,\beta)$] - $E_q$[log $q(\theta,Z)$]\\
+However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
 
 
 
