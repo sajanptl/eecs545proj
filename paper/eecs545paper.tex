@@ -158,20 +158,21 @@ Show derivation and algorithm
 \end{algorithm}
 
 \begin{algorithm}
-\caption{Estimation}\label{M-step}
+\caption{Maximization}\label{M-step}
 \begin{algorithmic}
 \Procedure{}{}
-\BState Initializatize: $\phi_{ni}^{0} = 1/K$ for all $i$ and $n$
-\BState Initializatize: $\gamma_{i}^{0} = \alpha_i + N/K$ for all $i$
-\BState repeat
-\For {$n=1$ to $N$}
+\BState Update $\beta$
 \For {$i=1$ to $K$}
-\State $\phi_{ni}^{t+1}:=\beta_{iw_n}\exp\{\varphi(\gamma_{i}^{t})-\varphi(\sum_{j=1}^{K} \gamma_{j}^{t})\}$
+\For {$j=1$ to $V$}
+\State $\beta_{ij} \propto \sum_{d=1}^{D}\sum_{n=1}^{N_d}\phi_{dni}w_{dn}^{j}$
 \EndFor {\textbf{end}}
 \EndFor {\textbf{end}}
-\State $\gamma^{t+1}:=\alpha +\sum_{n=1}^{N}\phi_{n}^{t+1}$
+\BState repeat
+\State Caculate gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$
+\State $\alpha^{t+1} = \alpha^{t} - H^{-1}(\alpha^{t})g(\alpha^{t})$
 \State $t \gets t+1$
 \BState until convergence
+
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
