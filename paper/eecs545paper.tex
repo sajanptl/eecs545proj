@@ -100,7 +100,30 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 
 
 \subsection{Gibbs Sampling Method}
-Show derivation and algorithm
+\begin{itemize}
+\item For each document, randomly assign each word in the document to one of the $K$ topics. 
+\begin{enumerate} 
+\item this step gives topic representation of all the documents
+\item this step gives word distributions of all the topics
+\item since randomly assign topics to each word is very native, so we need to improve it
+\end{enumerate}
+\item For each word $w_k$ in document $d_i$
+\begin{enumerate}
+\item For each topic $t_j$ that this word belongs to, compute:
+\begin{enumerate}
+\item $p(t_j | d_i)  = \frac{number of words assigned to t_j in d_i}{total number of words in d_i}$
+\item $p( w_k |  t_j) = \frac{number of words assigned to t_j in d_i}{number of words assigned to t_j for all docs}$
+\end{enumerate}
+\end{enumerate}
+\item we compute the product of i) and ii) above which gives the new topics to assign to this word.
+\item repeating step 2 over and over until it reaches a steady state where the assignments make good sense.
+\item Use this model to estimate the topic mixtures of each document and words associated to each topic, which are the two things we want to learn.
+\end{itemize}
+
+$t_j$ = the j-th topic
+$d_i$ = the i-th document
+$w_i$ = the i-th word in the document
+
 
 
 \subsection{Inference Method}
@@ -151,6 +174,9 @@ Describe efforts and work division here.
 [2]. Jordan, Michael I., et al. "An introduction to variational methods for graphical models." Machine learning 37.2 (1999): 183-233.\\
 
 [3]. Teh, Yee Whye, et al. "Hierarchical dirichlet processes." Journal of the american statistical association 101.476 (2006).
+
+
+
 %
 %[2] Bower, J.M. \& Beeman, D. (1995) {\it The Book of GENESIS: Exploring
 %Realistic Neural Models with the GEneral NEural SImulation System.}
