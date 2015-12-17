@@ -62,7 +62,7 @@ Sajan Patel\\
 \maketitle
 
 \begin{abstract}
-In this project, we studied the topic latent Dirichlet allocation (LDA), a nonparametric Bayesian model for collections of discrete data such as text corpora, which was first proposed by Blei, Ng, and Jordan in 2003 [1]. We followed the original paper to implement LDA using variance inference techniques and an EM algorithm for estimating the Bayes parameters and extracting subtopic from a text corpus. In addition, we also implemented LDA using collapsed Gibbs Sampling following Griffiths and Steyvers (2004). We recreated the document modeling experiment in [1] to extract subtopics on AP dataset. It was found variational inference and Gibbs sampling generated similar perplexities and subtopics. We also compared LDA with simple unigram model (and find that ... ). 
+In this project, we studied the topic latent Dirichlet allocation (LDA), a nonparametric Bayesian model for collections of discrete data such as text corpora, which was first proposed by Blei, Ng, and Jordan in 2003 [1]. We followed the original paper to implement LDA using variance inference techniques and an EM algorithm for estimating the Bayes parameters and extracting subtopic from a text corpus. In addition, we also implemented LDA using collapsed Gibbs Sampling following Griffiths and Steyvers (2004). We recreated the document modeling experiment in [1] to extract subtopics on AP dataset. It was found variational inference and Gibbs sampling generated similar perplexities and subtopics. We also compared LDA with simple unigram model (and find that ... ).
 
 %The abstract paragraph should be indented 1/2~inch (3~picas) on both left and
 %right-hand margins. Use 10~point type, with a vertical spacing of 11~points.
@@ -79,6 +79,9 @@ Based on Blei, briefly talk about unigram, mixture of unigram, and plsi.
 
 \section{Notation}
 We used similar notation as those denoted in the paper: \\
+$K$ = number of topics
+$D$ = number of documents
+$V$ = vocabulary size
 $N$ =  number of words in total.\\
 $z_j$ = the j-th topic\\
 $d_i$ = the i-th document\\
@@ -134,7 +137,7 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 
 
 \subsection{Inference Method}
-With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence. However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
+With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution q over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence. However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
 
 \begin{algorithm}
 \caption{Estimation}\label{E-step}
