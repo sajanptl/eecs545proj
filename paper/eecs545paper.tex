@@ -96,7 +96,7 @@ The latent Dirichlet allocation (LDA) model explains the generation of text docu
 
 This is the generative model for a collection of documents. LDA then tries to backtrack from the (training) documents to find a set of topics that are likely to have generated the collection. Now the question is how does LDA backtrack to find the parameters in this model. Suppose we have a set of documents D, and we set the number of topics to be K. What we want is to use LDA to learn two things 1) the topic representation of each document and 2) the words associated to each topic. 
 
-There are two methods to learn these two things: collapsed Gibbs sampling (Griffiths and Steyvers, 2002) and variational inference (Jordan et al., 1999, Teh et al., 2006). We first discuss Gibbs sampling method here:
+There are two methods to learn these two things: collapsed Gibbs sampling [1] and variational inference [2, 3]. We first discuss Gibbs sampling method here:
 
 
 \subsection{Gibbs Sampling Method}
@@ -145,11 +145,12 @@ Describe efforts and work division here.
 %a ninth page as long as it contains \emph{only} cited references.}
 
 \small{
-Use Bibtex here. We will only have a few references.
-%[1] Alexander, J.A. \& Mozer, M.C. (1995) Template-based algorithms
-%for connectionist rule extraction. In G. Tesauro, D. S. Touretzky
-%and T.K. Leen (eds.), {\it Advances in Neural Information Processing
-%Systems 7}, pp. 609-616. Cambridge, MA: MIT Press.
+
+[1]. Griffiths, Tom, and Mark Steyvers. "A probabilistic approach to semantic representation." Proceedings of the 24th annual conference of the cognitive science society. 2002.\\
+
+[2]. Jordan, Michael I., et al. "An introduction to variational methods for graphical models." Machine learning 37.2 (1999): 183-233.\\
+
+[3]. Teh, Yee Whye, et al. "Hierarchical dirichlet processes." Journal of the american statistical association 101.476 (2006).
 %
 %[2] Bower, J.M. \& Beeman, D. (1995) {\it The Book of GENESIS: Exploring
 %Realistic Neural Models with the GEneral NEural SImulation System.}
