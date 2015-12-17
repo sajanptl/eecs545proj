@@ -39,7 +39,7 @@ for line in open('data/yelp/yelp_academic_dataset_review.json', 'r'):
     review_line = json.loads(line)
     if (review_line['business_id'] in restaurant_ids_set):
         num_restaurant_review = num_restaurant_review + 1
-        if random.randrange(100) == 0:      # random get 1 review from 1000
+        if random.randrange(200) == 0:      # random get 1 review from 200
             print 'Restaurant number ', num_restaurant_review
             review = string_to_token(review_line['text'])
             reviews.append(review)
