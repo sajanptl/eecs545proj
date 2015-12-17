@@ -70,18 +70,20 @@ Based on Blei, briefly talk about unigram, mixture of unigram, and plsi.
 
 \section{Notation}
 We used similar notation as those denoted in the paper: \\
-N = number of words in total.\\
-...
+$N$ =  number of words in total.\\
+$z_j$ = the j-th topic\\
+$d_i$ = the i-th document\\
+$w_i$ = the i-th word in the document\\
 
 \section{LDA}
 The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a “topic”. The general process of the model to write a document is the following:
 
 \begin{itemize}
-\item The number of words $N$ in document has Poisson distribution with parameter $\zeta$
-\item The topic mixture $\theta$ for the document has Dirichlet distribution with parameter $\alpha$ (with a fixed set of $K$ topics)
+\item The number of words $N$ in document $\sim$ Poisson ($\zeta$)
+\item The topic mixture $\theta$ for the document $\sim$ Dir ($\alpha$) (with a fixed set of $K$ topics)
 \item Then for each word $w_i$ in the document:
 \begin{enumerate}
-\item Choose a topic $z_i$ based on multinomial distribution with parameter $\theta$ from step (2)
+\item Choose a topic $t_i$ based on multinomial distribution with parameter $\theta$ from step (2)
 \item Use this topic $z_i$ to generate word itself by using the existing probability for each word in this topic (i.e. $p(w_i | z_i, \beta)$
 \end{enumerate}
 \end{itemize}
@@ -111,8 +113,8 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 \begin{enumerate}
 \item For each topic $t_j$ that this word belongs to, compute:
 \begin{enumerate}
-\item $p(t_j | d_i)  = \frac{number of words assigned to t_j in d_i}{total number of words in d_i}$
-\item $p( w_k |  t_j) = \frac{number of words assigned to t_j in d_i}{number of words assigned to t_j for all docs}$
+\item $p(z_j | d_i)  = \frac{number of words assigned to z_j in d_i}{total number of words in d_i}$
+\item $p( w_k |  z_j) = \frac{number of words assigned to z_j in d_i}{number of words assigned to z_j for all docs}$
 \end{enumerate}
 \end{enumerate}
 \item we compute the product of i) and ii) above which gives the new topics to assign to this word.
@@ -120,17 +122,18 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 \item Use this model to estimate the topic mixtures of each document and words associated to each topic, which are the two things we want to learn.
 \end{itemize}
 
-$t_j$ = the j-th topic
-$d_i$ = the i-th document
-$w_i$ = the i-th word in the document
-
 
 
 \subsection{Inference Method}
 Show derivation and algorithm
 
 \section{Our Implementation}
-We implemented LDA using both Gibbs sampling and inference.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{vi}
+    \caption{Graphical model representation of the variational distribution used to approximate the posterior in LDA.}
+    \label{fig:graphmodel}
+\end{figure}
 
 \section{Experimental Evaluation}
 \subsection{Setup}
@@ -175,7 +178,7 @@ Describe efforts and work division here.
 
 [3]. Teh, Yee Whye, et al. "Hierarchical dirichlet processes." Journal of the american statistical association 101.476 (2006).
 
-
+[4]. Blei, David M., Andrew Y. Ng, and Michael I. Jordan. "Latent dirichlet allocation." the Journal of machine Learning research 3 (2003): 993-1022.
 
 %
 %[2] Bower, J.M. \& Beeman, D. (1995) {\it The Book of GENESIS: Exploring
