@@ -143,15 +143,15 @@ $w_i$ = the i-th word in the document\\
 \section{LDA}
 The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a “topic”. The general process of the model to write a document is the following:
 
-\begin{itemize}
+\begin{enumerate}
 \item The number of words $N$ in document $\sim$ Poisson ($\zeta$)
 \item The topic mixture $\theta$ for the document $\sim$ Dir ($\alpha$) (with a fixed set of $K$ topics)
 \item Then for each word $w_i$ in the document:
-\begin{enumerate}
+\begin{itemize}
 \item Choose a topic $t_i$ based on multinomial distribution with parameter $\theta$ from step (2)
-\item Use this topic $z_i$ to generate word itself by using the existing probability for each word in this topic (i.e. $p(w_i | z_i, \beta)$
-\end{enumerate}
+\item Use this topic $z_i$ to generate word itself by using the existing probability for each word in this topic (i.e. $p(w_i | z_i, \beta))$
 \end{itemize}
+\end{enumerate}
 
 \begin{figure}
     \centering
@@ -163,10 +163,10 @@ The latent Dirichlet allocation (LDA) model explains the generation of text docu
 
 This is the generative model for a collection of documents. LDA then tries to backtrack from the (training) documents to find a set of topics that are likely to have generated the collection. Now the question is how does LDA backtrack to find the parameters in this model. Suppose we have a set of documents D, and we set the number of topics to be K. What we want is to use LDA to learn two things 1) the topic representation of each document and 2) the words associated to each topic.
 
-There are two methods to learn these two things: collapsed Gibbs sampling [1] and variational inference [2, 3]. We first discuss Gibbs sampling method here:
+There are two commonly used methods to learn the latent parameters for a text corpus: collapsed Gibbs sampling [1] and variational inference [2, 3]. We have implemented both methods in our paper. 
 
 
-\subsection{Gibbs Sampling Method}
+\subsection{Collapsed Gibbs Sampling}
 \begin{itemize}
 \item For each document, randomly assign each word in the document to one of the $K$ topics.
 \begin{enumerate}
@@ -189,7 +189,7 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 
 
 
-\subsection{Inference Method}
+\subsection{Variational Inference}
 With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution q over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence:\\
 
 \begin{equation}
