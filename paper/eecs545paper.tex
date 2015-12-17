@@ -253,14 +253,14 @@ Minimizing the KL divergence is equivalent to maximizing the evidence lower boun
 \label{tab:1}%
 \end{table}
 
-In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound:\\
+When specifying the initial values of $\alpha$ and $\beta$, a symmetric Dirichlet distribution is assumed. In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound:\\
 
 \begin{align}
 \frac{\partial L}{\partial \alpha_i} &= D(\Psi (\sum_{j=1}^{K}\alpha_j)-\Psi(\alpha_i)) + \sum_{d=1}^{D}(\Psi(\gamma_{di}) -\Psi(\sum_{j=1}^{K}\gamma_{dj}))\\
 \frac{\partial L}{\partial \alpha_i \alpha_j} &= D\Psi'(\sum_{j=1}^{K}\alpha_j) - \delta (i,j)D\Psi'(\alpha_i)
 \end{align}
 
-When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $\exp\{-L/N\}$).
+When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $e^{-L/N}$). In addition, Laplace smoothing is used when updating the value of $\beta$ to avoid zero entries.
 
 \section{Evaluations and Empirical Results}
 \subsection{Dataset and Preprocessing}
