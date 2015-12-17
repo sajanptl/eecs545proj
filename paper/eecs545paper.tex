@@ -8,7 +8,11 @@
 \usepackage{multicol}
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
 \usepackage{lipsum}% http://ctan.org/pkg/lipsum
+\usepackage{tabulary}
+\usepackage{booktabs}
+\usepackage{mathtools}  
 
+\usepackage{amssymb}
 
 \usepackage{subcaption}% http://ctan.org/pkg/subcaption
 \captionsetup{compatibility=false}
@@ -129,16 +133,28 @@ hidden or latent topics, and the model generalizes better to new documents.
 
 \section{Notation}
 We used the same notations used by topic modeling literature throughout this paper  \\
-\noindent\rule{8cm}{0.4pt}\\
-$K$ = number of topics\\
-$D$ = number of documents\\
-$V$ = vocabulary size\\
-$N$ =  total number of words in the text corpus\\
-$N_d$ =  number of words in document d\\
-$z_j$ = the j-th topic\\
-$d_i$ = the i-th document\\
-$w_i$ = the i-th word in the document\\
-\noindent\rule{8cm}{0.4pt}
+
+
+\begin{table}[htbp]\caption{Table of Notation}
+\centering % to have the caption near the table
+\begin{tabular}{r c p{10cm} }
+\toprule
+
+$K$ & $=$ & number of topics\\
+$D$ & $=$ & number of documents\\
+$V$ & $=$ & vocabulary size\\
+$N$ & $=$ &  total number of words in the text corpus\\  
+$N_d$ & $=$ &  number of words in document d\\
+$z_j$ & $=$ & the j-th topic\\
+$d_i$ & $=$ & the i-th document\\
+$w_i$ & $=$ & the i-th word in the document\\
+
+\bottomrule
+\end{tabular}
+\label{tab:TableOfNotationForMyResearch}
+\end{table}
+
+
 
 \section{Latent Dirichlet Allocation}
 The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a topicÄù. The general process of the model to write a document is the following:
@@ -258,7 +274,9 @@ When applying LDA to training documents, the estimation and maximization steps a
 \label{tab:1}%
 \end{table}
 
-In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound $L(\gamma,\phi;\alpha,\beta)$:\\
+In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound 
+
+$L(\gamma,\phi;\alpha,\beta)$:\\
 $g(\alpha^{t})$
 
 When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $e^{-L/N}$).
