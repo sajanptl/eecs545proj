@@ -27,7 +27,7 @@ for k=1:K
     beta(k,:)=(beta(k,:)+realmin);
 end
 beta=bsxfun(@times,beta,1./sum(beta,2));
-smooth=0.00001;
+smooth=0.005;
 
 % Apply LDA with variational inference.
 tic
