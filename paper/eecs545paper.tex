@@ -203,7 +203,10 @@ However, since the KL divergence is intractable, Jensen's inequality is applied 
 
 
 
-In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound $L(\gamma,\phi;\alpha,\beta)$. When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $e^{-L/N}$).
+In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound $L(\gamma,\phi;\alpha,\beta)$:\\
+$g(\alpha^{t})$ 
+
+When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $\exp{-L/N}$).
 
 \section{Our Implementation}
 \begin{figure}
@@ -220,8 +223,6 @@ To evaluate our algorithm, we replicated one of the experiments implemented by B
 
 \subsection{Convergence of Algorithms}
 In AP dataset, each document is unlabeled. Therefore, here we are doing unsupervised learning with a purpose to estimate the likelihood of the test dataset. In natural language processing, the likelihood of a document is usually called perplexity, which is the inverse of the average per-word log likelihood. The perplexity of on the text corpus is defined by
-
-Describe perplexity here:
 
 \begin{align*}
 perplexity(D_{test}) &= \exp\Big\{{-\frac{\sum_{d=1}^{M} \log{p(w_d)}}{\sum_{d=1}^{M}N_d}}\Big\}\\
