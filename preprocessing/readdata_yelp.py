@@ -44,7 +44,6 @@ for line in open('data/yelp/yelp_academic_dataset_review.json', 'r'):
             review = string_to_token(review_line['text'])
             reviews.append(review)
 
-
 # vectorize
 print 'Vectorize'
 X = vectorize(reviews, 'data/yelp/LDA_input/')
