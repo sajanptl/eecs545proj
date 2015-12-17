@@ -191,7 +191,6 @@ There are two commonly used methods to learn the latent parameters for a text co
 \subsection{Inference Method}
 With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution q over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. In order to make the problem intractable, Jensen's inequality is applied to yield an evidence lower bound for the log-likelihood. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence:\\
 
-
 \begin{equation}
 D(q(\theta,Z|\gamma,\phi)||p(\theta,Z|W,\alpha,\beta)) = \log p(W|\alpha,\beta) - L(\gamma,\phi;\alpha,\beta)
 \end{equation}
