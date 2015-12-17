@@ -34,7 +34,7 @@ WSS = double(WS);
 DSS = double(DS);
 %WO = double(WO);
 WO = cellstr(WO);
-T = 10;
+T = 5;
 N_round = 300;
 ALPHA = 5;
 BETA = 0.1;
@@ -122,7 +122,7 @@ fprintf( '\n\nMost likely words in the first ten topics:\n' );
 
 %%
 % Write the topics to a text file
-WriteTopics( WP , BETA , WO , 10 , 0.7 , 5 , 'topics_10.txt' );
+WriteTopics( WP , BETA , WO , 10 , 0.7 , 5 , 'topics_5.txt' );
 %WriteTopics( WP , BETA , WO , 'topics5.txt' );
 
 fprintf( '\n\nInspect the file ''topics.txt'' for a text-based summary of the topics\n' ); 

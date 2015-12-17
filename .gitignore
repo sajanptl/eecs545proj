@@ -1,6 +1,12 @@
 .DS_Store
 .DS_Store?
 
+# ignore latex output files
+*.out
+*.aux
+*.synctex.gz
+*.log
+
 # ignore large datasets
 *.tar
 data/yelp_dataset_challenge_academic_dataset
