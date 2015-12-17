@@ -5,10 +5,18 @@
 \usepackage{graphicx}
 \usepackage{algorithm}
 \usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage{lipsum}% http://ctan.org/pkg/lipsum
 
 
-\usepackage[noend]{algpseudocode}
-\usepackage{subcaption}
+\usepackage{subcaption}% http://ctan.org/pkg/subcaption
+\captionsetup{compatibility=false}
+\DeclareCaptionSubType*{algorithm}
+\renewcommand\thesubalgorithm{\thetable\alph{subalgorithm}}
+\DeclareCaptionLabelFormat{alglabel}{Alg.~#2}
+
+
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
 
 
@@ -137,10 +145,13 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 \subsection{Inference Method}
 With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence. However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
 
-\begin{algorithm}
-\caption{Estimation}\label{E-step}
-\begin{algorithmic}
-\Procedure{}{}
+
+
+\lipsum[1]
+\begin{table}%
+\begin{subalgorithm}{.5\textwidth}
+\begin{algorithmic}[1]
+\BState $\textbf{Estimation}$
 \BState Initializatize: $\phi_{ni}^{0} = 1/K$ for all $i$ and $n$
 \BState Initializatize: $\gamma_{i}^{0} = \alpha_i + N/K$ for all $i$
 \BState repeat
@@ -152,14 +163,14 @@ With the same Dirichlet distribution model assumption shown in the previous sect
 \State $\gamma^{t+1}:=\alpha +\sum_{n=1}^{N}\phi_{n}^{t+1}$
 \State $t \gets t+1$
 \BState until convergence
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
 
-\begin{algorithm}
-\caption{Maximization}\label{M-step}
-\begin{algorithmic}
-\Procedure{}{}
+\end{algorithmic}
+\caption{E-step}\label{algo1}
+\end{subalgorithm}%
+\begin{subalgorithm}{.5\textwidth}
+\begin{algorithmic}[1]
+
+\BState $\textbf{Maximization}$
 \BState Update $\beta$
 \For {$i=1$ to $K$}
 \For {$j=1$ to $V$}
@@ -172,28 +183,20 @@ With the same Dirichlet distribution model assumption shown in the previous sect
 \State $t \gets t+1$
 \BState until convergence
 
-\EndProcedure
 \end{algorithmic}
-\end{algorithm}
+\caption{M-step}\label{algo2}
+\end{subalgorithm}
+\captionsetup{labelformat=alglabel}
+\caption{Two algorithms}%
+\label{tab:1}%
+\end{table}
 
 
-%
-%\BState \emph{top}:
-%\If {$i > \textit{stringlen}$} \Return false
-%\EndIf
-%\State $j \gets \textit{patlen}$
-%\BState \emph{loop}:
-%\If {$\textit{string}(i) = \textit{path}(j)$}
-%\State $j \gets j-1$.
-%\State $i \gets i-1$.
-%\State \textbf{goto} \emph{loop}.
-%\State \textbf{close};
-%\EndIf
-%\State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
-%\State \textbf{goto} \emph{top}.
-%\EndProcedure
-%\end{algorithmic}
-%\end{algorithm}
+On the left is Algorithm~\ref{algo1}. On the right is Algorithm~\ref{algo2}.
+
+\lipsum[2]
+
+
 
 In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound $L(\gamma,\phi;\alpha,\beta)$. When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $e^{-L/N}$).
 
