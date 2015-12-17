@@ -1,0 +1,52 @@
+%% Example of LDA with EM algorithm using the Yelp dataset.
+
+clear all
+%addpath('../lib/new_inference');
+load('../eecs545proj/data/yelp/LDA_input/W.mat'); % load the documents
+load('../eecs545proj/data/yelp/LDA_input/WO.mat'); % load the vocabulary
+rng(666);
+
+% Remove pseudo documents.
+W=W(1,);
+W=double(W);
+N=sum(W,2);
+idx=find(N~=0);
+W=W(idx,:);
+
+% Obtain the vocabulary size.
+V=size(W,2);
+
+% Define the number of documents.
+K=10;
+
+% Initialize alpha and beta.
+alpha=ones(K,1);
+eta=ones(V,1);
+beta=zeros(K,V);
+for k=1:K
+    beta(k,:)=randg(eta)';
+    beta(k,:)=(beta(k,:)+realmin);
+end
+beta=bsxfun(@times,beta,1./sum(beta,2));
+smooth=0.00001;
+tic
+% Apply LDA with variational inference.
+[alpha_new,beta_new,phi_new,gamma_new,perp,L,iter]=LDA_VI(W,alpha,beta,...
+    smooth,10^(-5),300,10^(-5),300,10^(-5),300);
+toc
+% Show results.
+figure(1);plot(perp);ylabel('Perplexity');xlabel('Iterations');
+figure(2);plot(L);ylabel('Evidence Lower Bound');xlabel('Iterations');
+fileID=fopen('yelp_train_topic.txt','w');
+for k=1:K
+    topic=beta_new(k,:);
+    [topic,idx1]=sort(topic,'descend');
+    fprintf(fileID,'%s  \t  %s\n',...
+        ['topic' num2str(k) '___' num2str(alpha_new(k))],...
+        'top 10 words proportions');
+    for x=1:10
+        fprintf(fileID,'%20s',WO(idx1(x),:)');
+        fprintf(fileID,'%20.5f\n',topic(x));
+    end
+end
+fclose(fileID);

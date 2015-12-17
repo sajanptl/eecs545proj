@@ -1,0 +1,110 @@
+topic1___0.012392  	  top 10 words proportions
+     food                        0.01063
+     place                       0.00923
+     chicken                     0.00728
+     ordered                     0.00686
+     restaurant                  0.00588
+     time                        0.00583
+     little                      0.00545
+     service                     0.00539
+     salad                       0.00522
+     sauce                       0.00489
+topic2___0.011317  	  top 10 words proportions
+     pizza                       0.00986
+     service                     0.00771
+     place                       0.00758
+     back                        0.00728
+     time                        0.00718
+     order                       0.00678
+     ordered                     0.00578
+     cheese                      0.00556
+     bread                       0.00552
+     chicken                     0.00461
+topic3___0.010953  	  top 10 words proportions
+     food                        0.02252
+     place                       0.01748
+     time                        0.00774
+     service                     0.00759
+     us                          0.00599
+     order                       0.00516
+     delicious                   0.00516
+     wait                        0.00516
+     ve                          0.00501
+     nice                        0.00487
+topic4___0.011335  	  top 10 words proportions
+     food                        0.02236
+     place                       0.01627
+     ve                          0.00809
+     time                        0.00769
+     service                     0.00731
+     restaurant                  0.00639
+     nice                        0.00590
+     try                         0.00549
+     pizza                       0.00543
+     menu                        0.00539
+topic5___0.013343  	  top 10 words proportions
+     food                        0.02156
+     place                       0.01234
+     service                     0.01111
+     nice                        0.00653
+     back                        0.00647
+     sushi                       0.00608
+     time                        0.00597
+     ve                          0.00585
+     ordered                     0.00574
+     try                         0.00552
+topic6___0.0079166  	  top 10 words proportions
+     food                        0.01174
+     place                       0.00821
+     back                        0.00655
+     service                     0.00598
+     restaurant                  0.00569
+     got                         0.00548
+     order                       0.00537
+     chicken                     0.00526
+     menu                        0.00506
+     little                      0.00505
+topic7___0.013329  	  top 10 words proportions
+     place                       0.01974
+     food                        0.01623
+     service                     0.00912
+     time                        0.00573
+     menu                        0.00569
+     ve                          0.00551
+     order                       0.00540
+     restaurant                  0.00506
+     try                         0.00503
+     back                        0.00495
+topic8___0.012369  	  top 10 words proportions
+     food                        0.01380
+     place                       0.01173
+     pizza                       0.00924
+     time                        0.00754
+     service                     0.00656
+     restaurant                  0.00634
+     back                        0.00561
+     ordered                     0.00547
+     order                       0.00505
+     even                        0.00502
+topic9___0.025957  	  top 10 words proportions
+     food                        0.02082
+     place                       0.01457
+     service                     0.00919
+     back                        0.00718
+     time                        0.00635
+     chicken                     0.00543
+     menu                        0.00490
+     pretty                      0.00484
+     ve                          0.00478
+     ordered                     0.00478
+topic10___0.0098695  	  top 10 words proportions
+     food                        0.01002
+     place                       0.00918
+     ordered                     0.00712
+     restaurant                  0.00693
+     back                        0.00667
+     time                        0.00655
+     us                          0.00654
+     got                         0.00641
+     ve                          0.00520
+     service                     0.00517

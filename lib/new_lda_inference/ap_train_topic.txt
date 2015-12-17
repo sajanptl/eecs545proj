@@ -1,0 +1,110 @@
+topic1___0.0043509  	  top 10 words proportions
+     police                      0.00882
+     people                      0.00725
+     two                         0.00634
+     one                         0.00538
+     new                         0.00449
+     million                     0.00449
+     dukakis                     0.00447
+     president                   0.00378
+     year                        0.00370
+     last                        0.00364
+topic2___0.0036399  	  top 10 words proportions
+     percent                     0.02355
+     million                     0.01167
+     year                        0.01020
+     market                      0.00975
+     stock                       0.00913
+     new                         0.00806
+     prices                      0.00718
+     billion                     0.00703
+     index                       0.00622
+     cents                       0.00611
+topic3___0.0035143  	  top 10 words proportions
+     people                      0.00646
+     one                         0.00628
+     two                         0.00606
+     year                        0.00481
+     million                     0.00477
+     new                         0.00430
+     officials                   0.00420
+     years                       0.00384
+     state                       0.00377
+     today                       0.00348
+topic4___0.0050293  	  top 10 words proportions
+     people                      0.00751
+     government                  0.00639
+     one                         0.00576
+     year                        0.00548
+     new                         0.00529
+     soviet                      0.00521
+     party                       0.00518
+     percent                     0.00512
+     police                      0.00493
+     president                   0.00408
+topic5___0.0017607  	  top 10 words proportions
+     year                        0.00790
+     percent                     0.00697
+     government                  0.00578
+     last                        0.00569
+     states                      0.00561
+     new                         0.00535
+     united                      0.00484
+     one                         0.00391
+     central                     0.00365
+     people                      0.00357
+topic6___0.0040475  	  top 10 words proportions
+     united                      0.00795
+     bush                        0.00722
+     president                   0.00718
+     states                      0.00715
+     government                  0.00713
+     two                         0.00496
+     south                       0.00475
+     year                        0.00466
+     soviet                      0.00457
+     new                         0.00404
+topic7___0.0036229  	  top 10 words proportions
+     two                         0.00594
+     year                        0.00570
+     one                         0.00559
+     court                       0.00483
+     new                         0.00412
+     years                       0.00401
+     last                        0.00377
+     state                       0.00360
+     company                     0.00357
+     people                      0.00340
+topic8___0.0032885  	  top 10 words proportions
+     soviet                      0.00618
+     west                        0.00537
+     year                        0.00528
+     east                        0.00502
+     german                      0.00499
+     dollar                      0.00470
+     new                         0.00458
+     one                         0.00400
+     president                   0.00391
+     germany                     0.00379
+topic9___0.0028196  	  top 10 words proportions
+     year                        0.00625
+     president                   0.00541
+     bush                        0.00537
+     one                         0.00533
+     house                       0.00497
+     time                        0.00471
+     new                         0.00453
+     two                         0.00423
+     dukakis                     0.00401
+     first                       0.00387
+topic10___0.0031029  	  top 10 words proportions
+     new                         0.00793
+     year                        0.00680
+     one                         0.00541
+     government                  0.00446
+     president                   0.00435
+     state                       0.00413
+     could                       0.00409
+     two                         0.00402
+     time                        0.00391
+     people                      0.00384

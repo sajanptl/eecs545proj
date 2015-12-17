@@ -1,0 +1,49 @@
+%% Example of LDA with EM algorithm using the AP dataset from Blei.
+
+clear all
+%addpath('../lib/new_inference');
+load('../eecs545proj/data/ap/LDA_input/W.mat'); % load the documents
+load('../eecs545proj/data/ap/LDA_input/WO.mat'); % load the vocabulary
+rng(666);
+
+% Remove pseudo documents.
+W=double(W);
+N=sum(W,2);
+idx=find(N~=0);
+W=W(idx,:);
+
+% Obtain the vocabulary size.
+V=size(W,2);
+
+% Define the number of documents.
+K=10;
+
+% Initialize alpha and beta.
+alpha=ones(K,1);
+eta=ones(V,1);
+beta=zeros(K,V);
+for k=1:K
+    beta(k,:)=randg(eta)';
+    beta(k,:)=(beta(k,:)+realmin);
+end
+beta=bsxfun(@times,beta,1./sum(beta,2));
+smooth=0.00001;
+
+% Apply LDA with variational inference.
+[alpha_new,beta_new,phi_new,gamma_new,perp,L,iter]=LDA_VI(W,alpha,beta,...
+    smooth,10^(-5),300,10^(-5),300,10^(-5),300);
+
+% Show results.
+figure(1);plot(perp,'o-');ylabel('Perplexity');xlabel('Iterations');
+figure(2);plot(L,'o-');ylabel('Evidence Lower Bound');xlabel('Iterations');
+fileID=fopen('ap_train_topic.txt','w');
+for k=1:K
+    topic=beta_new(k,:);
+    [topic,idx1]=sort(topic,'descend');
+    fprintf(fileID,'%10s %30s\n',['topic' num2str(k)],'top 10 words proportions');
+    for x=1:10
+        fprintf(fileID,'%10s\t',WO(idx1(1:10),:)');
+        fprintf(fileID,'%30.5f\n',topic(1:10)]);
+    end
+end
+fclose(fileID);
