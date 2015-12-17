@@ -255,7 +255,9 @@ When applying LDA to training documents, the estimation and maximization steps a
 \label{tab:1}%
 \end{table}
 
-In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound $L(\gamma,\phi;\alpha,\beta)$:\\
+In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound 
+
+$L(\gamma,\phi;\alpha,\beta)$:\\
 $g(\alpha^{t})$
 
 When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $e^{-L/N}$).
