@@ -5,10 +5,18 @@
 \usepackage{graphicx}
 \usepackage{algorithm}
 \usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage{lipsum}% http://ctan.org/pkg/lipsum
 
 
-\usepackage[noend]{algpseudocode}
-\usepackage{subcaption}
+\usepackage{subcaption}% http://ctan.org/pkg/subcaption
+\captionsetup{compatibility=false}
+\DeclareCaptionSubType*{algorithm}
+\renewcommand\thesubalgorithm{\thetable\alph{subalgorithm}}
+\DeclareCaptionLabelFormat{alglabel}{Alg.~#2}
+
+
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
 
 
@@ -144,10 +152,13 @@ where\\
 $L(\gamma,\phi;\alpha,\beta)$ = $E_q$[log $p(\theta,Z,W|\alpha,\beta)$] - $E_q$[log $q(\theta,Z)$]\\
 However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
 
-\begin{algorithm}
-\caption{Estimation}\label{E-step}
-\begin{algorithmic}
-\Procedure{}{}
+
+
+\lipsum[1]
+\begin{table}%
+\begin{subalgorithm}{.5\textwidth}
+\begin{algorithmic}[1]
+\BState $\textbf{Estimation}$
 \BState Initializatize: $\phi_{ni}^{0} = 1/K$ for all $i$ and $n$
 \BState Initializatize: $\gamma_{i}^{0} = \alpha_i + N/K$ for all $i$
 \BState repeat
@@ -159,14 +170,14 @@ However, since the KL divergence is intractable, Jensen's inequality is applied 
 \State $\gamma^{t+1}:=\alpha +\sum_{n=1}^{N}\phi_{n}^{t+1}$
 \State $t \gets t+1$
 \BState until convergence
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
 
-\begin{algorithm}
-\caption{Maximization}\label{M-step}
-\begin{algorithmic}
-\Procedure{}{}
+\end{algorithmic}
+\caption{E-step}\label{algo1}
+\end{subalgorithm}%
+\begin{subalgorithm}{.5\textwidth}
+\begin{algorithmic}[1]
+
+\BState $\textbf{Maximization}$
 \BState Update $\beta$
 \For {$i=1$ to $K$}
 \For {$j=1$ to $V$}
@@ -179,33 +190,24 @@ However, since the KL divergence is intractable, Jensen's inequality is applied 
 \State $t \gets t+1$
 \BState until convergence
 
-\EndProcedure
 \end{algorithmic}
-\end{algorithm}
+\caption{M-step}\label{algo2}
+\end{subalgorithm}
+\captionsetup{labelformat=alglabel}
+\caption{Two algorithms}%
+\label{tab:1}%
+\end{table}
 
 
-%
-%\BState \emph{top}:
-%\If {$i > \textit{stringlen}$} \Return false
-%\EndIf
-%\State $j \gets \textit{patlen}$
-%\BState \emph{loop}:
-%\If {$\textit{string}(i) = \textit{path}(j)$}
-%\State $j \gets j-1$.
-%\State $i \gets i-1$.
-%\State \textbf{goto} \emph{loop}.
-%\State \textbf{close};
-%\EndIf
-%\State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
-%\State \textbf{goto} \emph{top}.
-%\EndProcedure
-%\end{algorithmic}
-%\end{algorithm}
+On the left is Algorithm~\ref{algo1}. On the right is Algorithm~\ref{algo2}.
+
+\lipsum[2]
+
+
 
 In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound $L(\gamma,\phi;\alpha,\beta)$. When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $e^{-L/N}$).
 
 \section{Our Implementation}
-
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{vi}
@@ -231,7 +233,7 @@ perplexity(D_{test}) &= \exp\Big\{{-\frac{\sum_{d=1}^{M} \log{p(w_d)}}{\sum_{d=1
 $$\text{where, }\theta_{v,k} = \frac{C_{vk}+\beta}{\sum_{v'}C_{v' k}+\beta}, \phi_{d,k} = \frac{C_{dk+\alpha}}{\sum_{k'}C_{dk'}+K\alpha}$$
 
 
-While implementing our algorithms, we first monitors the convergence of the algorithm. This was done by monitoring the perplexity (defined below) of training data, as shown Figure 3. We can see that in both cases the algorithm converges after enough number of iterations, although the numbers of iterations required to reach convergence are very different.
+While implementing our algorithms, we first monitors the convergence of the algorithm. This was done by monitoring the perplexity (defined below) of training data, as shown Figure 3. We can see that in both cases the algorithm converges after enough number of iterations, although the numbers of iterations required to reach convergence are very different. Variational inference LDA usually converges after about 10 iteration, while Gibbs sampling LDA needs several hundred. This is a primary reason that the variational inference algorithm is much faster and more commonly used in practice.
 
 \subsection{Extracted Subtopics}
 We trained a 10-topic LDA model on the training dataset using both Gibbs sampling and variational inference, and 5 of the generated subtopics in shown in Figure 4. For each topic, the 10 words that are most likely to occur is listed. As we expected, LDA automatically generated meaning full subtopics from the AP corpus, with similar words more likely to appear in the same topic.
