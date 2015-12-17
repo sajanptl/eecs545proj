@@ -9,8 +9,9 @@
 
 # ignore large datasets
 *.tar
-data/yelp_dataset_challenge_academic_dataset
+data/yelp
 
 # matlab related
 *.m~
 *.mexmaci64
+*.mexa64
