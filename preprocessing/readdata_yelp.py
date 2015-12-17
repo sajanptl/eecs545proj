@@ -3,6 +3,7 @@
 # 11/30/2015
 
 import json
+import readdata_ap
 
 # read business info
 print 'Reading business information'

@@ -2,6 +2,7 @@
 \usepackage{nips14submit_e,times}
 \usepackage{hyperref}
 \usepackage{url}
+\usepackage{graphicx}
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
 
 
@@ -67,16 +68,42 @@ Here, describe the problem statement: Given a text document, model the topics of
 \subsection{Related Works}
 Based on Blei, briefly talk about unigram, mixture of unigram, and plsi.
 
-\section{Method}
-Describe the graphical model of the document and present the algorithm described in the paper. This should be
-like a summary of the algorithm's ideas. We can save the details of variational inference and gibbs sampling 
-for our implementation section since we only have 8 pages worth of space.
-A picture here of the graphical model would also be good.
+\section{Notation}
+We used similar notation as those denoted in the paper: \\
+N = number of words in total.\\
+...
 
-\subsection{Inference Method}
-Show derivation and algorithm
+\section{LDA}
+The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a “topic”. The general process of the model to write a document is the following:
+
+\begin{itemize}
+\item The number of words $N$ in document has Poisson distribution with parameter $\zeta$
+\item The topic mixture $\theta$ for the document has Dirichlet distribution with parameter $\alpha$ (with a fixed set of $K$ topics)
+\item Then for each word $w_i$ in the document:
+\begin{enumerate}
+\item Choose a topic $z_i$ based on multinomial distribution with parameter $\theta$ from step (2)
+\item Use this topic $z_i$ to generate word itself by using the existing probability for each word in this topic (i.e. $p(w_i | z_i, \beta)$
+\end{enumerate}
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphmodel}
+    \caption{Graphic model of LDA. The boxes are ``plates'' representing replicates. The outer plate represents documents, while the inner plate represents the repeated choice of topics and words within a document.}
+    \label{fig:graphmodel}
+\end{figure}
+
+
+This is the generative model for a collection of documents. LDA then tries to backtrack from the (training) documents to find a set of topics that are likely to have generated the collection. Now the question is how does LDA backtrack to find the parameters in this model. Suppose we have a set of documents D, and we set the number of topics to be K. What we want is to use LDA to learn two things 1) the topic representation of each document and 2) the words associated to each topic. 
+
+There are two methods to learn these two things: collapsed Gibbs sampling (Griffiths and Steyvers, 2002) and variational inference (Jordan et al., 1999, Teh et al., 2006). We first discuss Gibbs sampling method here:
+
 
 \subsection{Gibbs Sampling Method}
+Show derivation and algorithm
+
+
+\subsection{Inference Method}
 Show derivation and algorithm
 
 \section{Our Implementation}
