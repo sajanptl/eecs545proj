@@ -3,6 +3,10 @@
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{amsmath}
+
+\usepackage[noend]{algpseudocode}
 \usepackage{subcaption}
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
 
@@ -46,7 +50,13 @@ Sajan Patel\\
 
 \nipsfinalcopy % Uncomment for camera-ready version
 
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
 \begin{document}
+
 
 
 \maketitle
@@ -124,7 +134,67 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 
 
 \subsection{Inference Method}
-Show derivation and algorithm
+With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed such that the placed distribution is close to the posterior in KL divergence. However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
+
+\begin{algorithm}
+\caption{Estimation}\label{E-step}
+\begin{algorithmic}
+\Procedure{}{}
+\BState Initializatize: $\phi_{ni}^{0} = 1/K$ for all $i$ and $n$
+\BState Initializatize: $\gamma_{i}^{0} = \alpha_i + N/K$ for all $i$
+\BState repeat
+\For {$n=1$ to $N$}
+\For {$i=1$ to $K$}
+\State $\phi_{ni}^{t+1}:=\beta_{iw_n}\exp\{\varphi(\gamma_{i}^{t})-\varphi(\sum_{j=1}^{K} \gamma_{j}^{t})\}$
+\EndFor {\textbf{end}}
+\EndFor {\textbf{end}}
+\State $\gamma^{t+1}:=\alpha +\sum_{n=1}^{N}\phi_{n}^{t+1}$
+\State $t \gets t+1$
+\BState until convergence
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Maximization}\label{M-step}
+\begin{algorithmic}
+\Procedure{}{}
+\BState Update $\beta$
+\For {$i=1$ to $K$}
+\For {$j=1$ to $V$}
+\State $\beta_{ij} \propto \sum_{d=1}^{D}\sum_{n=1}^{N_d}\phi_{dni}w_{dn}^{j}$
+\EndFor {\textbf{end}}
+\EndFor {\textbf{end}}
+\BState repeat
+\State Caculate gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$
+\State $\alpha^{t+1} = \alpha^{t} - H^{-1}(\alpha^{t})g(\alpha^{t})$
+\State $t \gets t+1$
+\BState until convergence
+
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+%
+%\BState \emph{top}:
+%\If {$i > \textit{stringlen}$} \Return false
+%\EndIf
+%\State $j \gets \textit{patlen}$
+%\BState \emph{loop}:
+%\If {$\textit{string}(i) = \textit{path}(j)$}
+%\State $j \gets j-1$.
+%\State $i \gets i-1$.
+%\State \textbf{goto} \emph{loop}.
+%\State \textbf{close};
+%\EndIf
+%\State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
+%\State \textbf{goto} \emph{top}.
+%\EndProcedure
+%\end{algorithmic}
+%\end{algorithm}
+
+
 
 \section{Our Implementation}
 \begin{figure}
@@ -192,14 +262,15 @@ All authors contributed to the overall study of LDA and its implementation. Xian
 
 [1] Griffiths, TL., Steyvers, M. "Finding scientific topics." Proceedings of the National Academy of Sciences.  101(suppl 1) (2004): 5228-35.
 
-[2]. Jordan, Michael I., et al. "An introduction to variational methods for graphical models." Machine learning 37.2 (1999): 183-233.
+[2]. Jordan, Michael I., et al. "An introduction to variational methods for graphical models." Machine Learning 37.2 (1999): 183-233.
 
-[3]. Teh, Yee Whye, et al. "Hierarchical dirichlet processes." Journal of the american statistical association 101.476 (2006).
+[3]. Teh, Yee Whye, et al. "Hierarchical Dirichlet Processes." Journal of the American Statistical Association 101.476 (2006).
 
-[4]. Blei, David M., Andrew Y. Ng, and Michael I. Jordan. "Latent dirichlet allocation." the Journal of machine Learning research 3 (2003): 993-1022.
+[4]. Blei, David M., Andrew Y. Ng, and Michael I. Jordan. "Latent Dirichlet Allocation." the Journal of Machine Learning Research 3 (2003): 993-1022.
 
-[5] \url{http://www.cs.columbia.edu/~blei/lda-c/}. It should be noted that the size of the dataset here is about one eighth of the dataset used by Blei et al. So there might be some discrepancy between our result and those presented in Blei et al.
+[5]. D. Blei and J. Lafferty. "Topic Models." In A. Srivastava and M. Sahami, editors, Text Mining: Classification, Clustering, and Applications. Chapman $\&$ Hall/CRC Data Mining and Knowledge Discovery Series, 2009.
 
+[6]. \url{http://www.cs.columbia.edu/~blei/lda-c/}. It should be noted that the size of the dataset here is about one eighth of the dataset used by Blei et al. So there might be some discrepancy between our result and those presented in Blei et al.
 %
 %[2] Bower, J.M. \& Beeman, D. (1995) {\it The Book of GENESIS: Exploring
 %Realistic Neural Models with the GEneral NEural SImulation System.}
