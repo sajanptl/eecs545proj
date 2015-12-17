@@ -15,7 +15,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.cross_validation import train_test_split
 
 ENGLISH_STOP_WORDS = stopwords.words("english")
-for w in ['would', 'also', 'said', 're']:
+for w in ['would', 'also', 'said', 're', 'good', 'like', 'love', 'great',
+        'go', 'get', 'one']:
     ENGLISH_STOP_WORDS.append(w)
 
 def string_to_token(s):
