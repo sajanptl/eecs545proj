@@ -198,6 +198,7 @@ With the same Dirichlet distribution model assumption shown in the previous sect
 In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound $L(\gamma,\phi;\alpha,\beta)$. When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $e^{-L/N}$).
 
 \section{Our Implementation}
+
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{vi}
@@ -207,10 +208,10 @@ In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t}
 
 
 \section{Evaluations and Empirical Results}
-\subsection{Dataset}
-To evaluate our algorithm, we replicated one of the experiments implemented by Blei et al. on document modeling. We used AP dataset which contains 2346 (verify this number) news articles from the associated press [6]. The dataset was partitioned into 80 percent training set and 20 percent test data.
+\subsection{Dataset and Preprocessing}
+To evaluate our algorithm, we replicated one of the experiments implemented by Blei et al. on document modeling. We used AP dataset which contains 2246 (verify this number) news articles from the associated press [6]. The dataset was partitioned into 80 percent training set and 20 percent test data. In preprocessing of the data, we removed a list of stop words from the text. We further removed words that appear less than 20 times (rare words), as well as words that appear in more than 90 percent of the documents (common words). We ended up with a vocabulary size of 3564.
 
-\subsection{Metrics and Results}
+\subsection{Convergence of Algorithms}
 In AP dataset, each document is unlabeled. Therefore, here we are doing unsupervised learning with a purpose to estimate the likelihood of the test dataset. In natural language processing, the likelihood of a document is usually called perplexity, which is the inverse of the average per-word log likelihood. The perplexity of on the text corpus is defined by
 
 Describe perplexity here:
@@ -224,6 +225,10 @@ $$\text{where, }\theta_{v,k} = \frac{C_{vk}+\beta}{\sum_{v'}C_{v' k}+\beta}, \ph
 
 
 While implementing our algorithms, we first monitors the convergence of the algorithm. This was done by monitoring the perplexity (defined below) of training data, as shown Figure 3. We can see that in both cases the algorithm converges after enough number of iterations, although the numbers of iterations required to reach convergence are very different.
+
+\subsection{Extracted Subtopics}
+We trained a 10-topic LDA model on the training dataset using both Gibbs sampling and variational inference, and 5 of the generated subtopics in shown in Figure 4. For each topic, the 10 words that are most likely to occur is listed. As we expected, LDA automatically generated meaning full subtopics from the AP corpus, with similar words more likely to appear in the same topic. 
+
 
 \begin{figure}
 \begin{subfigure}[b]{.5\linewidth}
