@@ -8,7 +8,11 @@
 \usepackage{multicol}
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
 \usepackage{lipsum}% http://ctan.org/pkg/lipsum
+\usepackage{tabulary}
+\usepackage{booktabs}
+\usepackage{mathtools}  
 
+\usepackage{amssymb}
 
 \usepackage{subcaption}% http://ctan.org/pkg/subcaption
 \captionsetup{compatibility=false}
@@ -71,71 +75,96 @@ Sajan Patel\\
 \maketitle
 
 \begin{abstract}
-Latent Dirichlet Allocation (LDA) is a generative probabilistic model for collections of discrete data and text 
-corpora proposed by Blei et al. in their 2003 \textit{Journal\- of Machine Learning Research} paper. 
-A common application of LDA is the unsupervised learning of document topic models. 
-In this paper, we explore the LDA model according 
-to Blei et al., 2003, and implement it using Gibbs sampling and variational inference methods. We evaluate our 
-implementation using the topic modeling experiment done by Blei et al., 2003, applying it to the TREC AP corpus. 
-We also compare LDA to the simple unigram topic model and discuss the subsequent conclusions gained 
+Latent Dirichlet Allocation (LDA) is a generative probabilistic model for collections of discrete data and text
+corpora proposed by Blei et al. in their 2003 \textit{Journal\- of Machine Learning Research} paper.
+A common application of LDA is the unsupervised learning of document topic models.
+In this paper, we explore the LDA model according
+to Blei et al., 2003, and implement it using Gibbs sampling and variational inference methods. We evaluate our
+implementation using the topic modeling experiment done by Blei et al., 2003, applying it to the TREC AP corpus.
+We also compare LDA to the simple unigram topic model and discuss the subsequent conclusions gained
 from our experimentation.
 \end{abstract}
 
 \section{Introduction}
-The problem of modeling text documents and extracting the topics within them given unsupervised training data is 
-document topic modeling. Each topic is a short description of the members of a collection of documents it 
-represents. Applications of this problem can range from extracting topics from lengthy journals and 
-news articles to short social media posts or business reviews. 
+The problem of modeling text documents and extracting the topics within them given unsupervised training data is
+document topic modeling. Each topic is a short description of the members of a collection of documents it
+represents. Applications of this problem can range from extracting topics from lengthy journals and
+news articles to short social media posts or business reviews.
 
-\textit{Latent Dirichlet Allocation} (LDA) is a generative model proposed by Blei et al., 2003 [4], that can be used to 
-solve this problem. It is a three-level hierarchical Bayesian model in which document is modeled as a mixture of 
-underlying topics, and each topic is modeled by underlying probabilities of topics. LDA treats topics as the latent 
-variables of the document model that are learned throughout the training process. There are other applications of 
+\textit{Latent Dirichlet Allocation} (LDA) is a generative model proposed by Blei et al., 2003 [4], that can be used to
+solve this problem. It is a three-level hierarchical Bayesian model in which document is modeled as a mixture of
+underlying topics, and each topic is modeled by underlying probabilities of topics. LDA treats topics as the latent
+variables of the document model that are learned throughout the training process. There are other applications of
 LDA as well, such as in document classification and collaborative filtering; however, in this paper, we focus on the
- application of LDA to topic models. 
+ application of LDA to topic models.
 
-We implement the model using both the variational inference method proposed in Blei et. al, 2003, as well as using the collapsed 
-Gibbs Sampling method of Griffiths and Steyvers, 2004 [1]. Both methods offer a different perspective on how to train the 
-LDA model using unsupervised training data, and each method has its advantages and disadvantages in terms of 
-performance and implementation. To evaluate each method, we adapt the topic modeling experiment Blei et al., 2003, 
-to compare the convergence of the training phase for each method using the TREC AP corpus [6] as our unlabeled 
+We implement the model using both the variational inference method proposed in Blei et. al, 2003, as well as using the collapsed
+Gibbs Sampling method of Griffiths and Steyvers, 2004 [1]. Both methods offer a different perspective on how to train the
+LDA model using unsupervised training data, and each method has its advantages and disadvantages in terms of
+performance and implementation. To evaluate each method, we adapt the topic modeling experiment Blei et al., 2003,
+to compare the convergence of the training phase for each method using the TREC AP corpus [6] as our unlabeled
 training and testing dataset. We present our findings from this experiment and the subsequent conclusions gained from them.
 
 \subsection{Related Works}
-It is important to note that LDA is not the only probabilistic document model that exists. Other works in topic and 
-document modeling using latent variables have been done using the unigram model, mixture of unigrams, and 
-probabilistic latent semantic indexing (pLSI). In the unigram model, words in each document are independently 
+It is important to note that LDA is not the only probabilistic document model that exists. Other works in topic and
+document modeling using latent variables have been done using the unigram model, mixture of unigrams, and
+probabilistic latent semantic indexing (pLSI). In the unigram model, words in each document are independently
 generated from a single multinomial probability distribution for the entire vocabulary of words. This model is highly
- limited in that each word, 
-essentially, is its own topic. 
+ limited in that each word,
+essentially, is its own topic.
 
 In the mixture of unigrams model proposed by Nigam et al., 2000 [7], documents are
-generated by first choosing a topic from a distribution of all topics and then independently generating the words 
+generated by first choosing a topic from a distribution of all topics and then independently generating the words
 from a distribution of the vocabulary conditioned on the chosen topic. This model also highly overfits to the
  training set.
- Each document is limited to being 
-generated from one topic and overfitting to the training document set is a major issue. 
+ Each document is limited to being
+generated from one topic and overfitting to the training document set is a major issue.
 
-The pLSI model proposed by Hofmann, 1999 [8], attempts to relax the assumption in the 
+The pLSI model proposed by Hofmann, 1999 [8], attempts to relax the assumption in the
 mixture of unigrams to allow documents to be generated from multiple topics with varying probabilities. However,
- it is not a well-defined model since it there is no intuitive way to assign probabilities to previously unseen 
-documents in the testing set and it greatly overfits the model to the training set due to conditioning the model 
+ it is not a well-defined model since it there is no intuitive way to assign probabilities to previously unseen
+documents in the testing set and it greatly overfits the model to the training set due to conditioning the model
 based only on the training set.
 
-LDA overcomes both the problems these three other models encounter with overfitting and limited document 
-models. It allows for documents to be generated from distribution of topics with varying probabilities from which 
-the words are then generated. There is more flexibility in learning the 
+LDA overcomes both the problems these three other models encounter with overfitting and limited document
+models. It allows for documents to be generated from distribution of topics with varying probabilities from which
+the words are then generated. There is more flexibility in learning the
 hidden or latent topics, and the model generalizes better to new documents.
 
 \section{Notation}
-We used similar notation as those denoted in the paper: \\
+We used the same notations used by topic modeling literature throughout this paper  \\
+\noindent\rule{8cm}{0.4pt}\\
 $K$ = number of topics\\
 $D$ = number of documents\\
 $V$ = vocabulary size\\
-$N$ =  number of words in total.\\
+$N$ =  total number of words in the text corpus\\
+$N_d$ =  number of words in document d\\
 $z_j$ = the j-th topic\\
 $d_i$ = the i-th document\\
 $w_i$ = the i-th word in the document\\
+\noindent\rule{8cm}{0.4pt}
+
+
+\begin{table}[htbp]\caption{Table of Notation My Research}
+\vspace{-1.5em}
+\begin{center}
+     \begin{tabular}{r c p{10cm} }
+\toprule
+$R_{i}$ & $\triangleq$ & Revenue at store $i$\\
+$i$ & $\triangleq$ & index value for store locations\\
+${T}_{c}$ & $\triangleq$ & A very long description of this specific variable and is needed in the research and looks good when wrapped and aligned to the left.\\
+$TC$ & $\triangleq$ & Total overall cost(\$)\\  
+\multicolumn{3}{c}{}\\
+\multicolumn{3}{c}{\underline{Decision Variables}}\\
+$y_{f}$ & $=$ & \left \{ \begin{array}{rl}    1, &\mbox{ if Supplier located at site $f$ is open} \\
+0, &\mbox{ otherwise} \end{array} \right.\\
+\bottomrule
+    \end{tabular}
+\end{center}
+    \label{tab:TableOfNotationForMyResearch}
+\end{table}
+
+
 
 \section{LDA}
 The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a “topic”. The general process of the model to write a document is the following:
@@ -199,7 +228,7 @@ where
 L(\gamma,\phi;\alpha,\beta) =E_q[\log p(\theta,Z,W|\alpha,\beta)] - E_q[\log q(\theta,Z)]
 \end{equation}
 
-However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm. In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound
+Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm. In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound
 
 \begin{align}
 \frac{\partial L}{\partial \alpha_i} &= D(\Psi (\sum_{j=1}^{K}\alpha_j)-\Psi(\alpha_i)) + \sum_{d=1}^{D}(\Psi(\gamma_{di}) -\Psi(\sum_{j=1}^{K}\gamma_{dj}))\\
@@ -337,6 +366,7 @@ Summarize advantages and disadvantages as well.
 \subsubsection*{Author Contributions}
 All authors contributed to the overall study of LDA and its implementation. Xiang preprocessed AP dataset in Python to generate input matrices for LDA, and implemented Gibbs Sampling LDA in MATLAB. Zheng implemented variational inference LDA in MATLAB. Sajan implemented the Unigram model in MATLAB. Yan wrote MATLAB functions for calculating perplexity and extracting subtopics from LDA outputs. All authors participated in final data analysis and interpretation, as well as writing of the manuscript.
 
+\newpage
 \subsubsection*{References}
 
 %References follow the acknowledgments. Use unnumbered third level heading for
