@@ -175,8 +175,8 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 \begin{enumerate}
 \item For each topic $t_j$ that this word belongs to, compute:
 \begin{enumerate}
-\item $p(z_j | d_i)  = \frac{number of words assigned to z_j in d_i}{total number of words in d_i}$
-\item $p( w_k |  z_j) = \frac{number of words assigned to z_j in d_i}{number of words assigned to z_j for all docs}$
+\item $p(z_j | d_i)  = \frac{\text{number of words assigned to }z_j \text{in }d_i}{\text{total number of words in }d_i}$
+\item $p( w_k |  z_j) = \frac{\text{number of words assigned to} z_j \text{in } d_i}{\text{number of words assigned to }z_j \text{for all docs}}$
 \end{enumerate}
 \end{enumerate}
 \item we compute the product of i) and ii) above which gives the new topics to assign to this word.
@@ -199,9 +199,7 @@ where
 L(\gamma,\phi;\alpha,\beta) =E_q[\log p(\theta,Z,W|\alpha,\beta)] - E_q[\log q(\theta,Z)]
 \end{equation*}
 
-However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
-
-In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound
+However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm. In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound
 
 $$\frac{\partial L}{\partial \alpha_i} = D(\Psi (\sum_{j=1}^{K}\alpha_j)-\Psi(\alpha_i)) + \sum_{d=1}^{D}(\Psi(\gamma_{di}) -\Psi(\sum_{j=1}^{K}\gamma_{dj}))$$\\
 $$\frac{\partial L}{\partial \alpha_i \alpha_j} = D\Psi'(\sum_{j=1}^{K}\alpha_j) - \delta (i,j)D\Psi'(\alpha_i)$$\\
