@@ -62,10 +62,8 @@ Sajan Patel\\
 \maketitle
 
 \begin{abstract}
-Abstract goes here. Talk about how LDA can be used for topic modeling. Our method and implementation is
-built on the Blei et. al. JMLR paper. We recreated the experiment for document modeling from the paper.
-We also applied LDA to the Yelp Dataset. We present our implementation of the method, experiment, and
-our analysis of the results in this paper.
+In this project, we studied the topic latent Dirichlet allocation (LDA), a nonparametric Bayesian model for collections of discrete data such as text corpora, which was first proposed by Blei, Ng, and Jordan in 2003 [1]. We followed the original paper to implement LDA using variance inference techniques and an EM algorithm for estimating the Bayes parameters and extracting subtopic from a text corpus. In addition, we also implemented LDA using collapsed Gibbs Sampling following Griffiths and Steyvers (2004). We recreated the document modeling experiment in [1] to extract subtopics on AP dataset. It was found variational inference and Gibbs sampling generated similar perplexities and subtopics. We also compared LDA with simple unigram model (and find that ... ). 
+
 %The abstract paragraph should be indented 1/2~inch (3~picas) on both left and
 %right-hand margins. Use 10~point type, with a vertical spacing of 11~points.
 %The word \textbf{Abstract} must be centered, bold, and in point size 12. Two
@@ -209,7 +207,7 @@ In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t}
 
 \section{Evaluations and Empirical Results}
 \subsection{Dataset}
-To evaluate our algorithm, we replicated one of the experiments implemented by Blei et al. on document modeling. We used AP dataset which contains 2346 (verify this number) news articles from the associated press [5]. The dataset was partitioned in to 80 percent training set and 20 percent test data.
+To evaluate our algorithm, we replicated one of the experiments implemented by Blei et al. on document modeling. We used AP dataset which contains 2346 (verify this number) news articles from the associated press [6]. The dataset was partitioned into 80 percent training set and 20 percent test data.
 
 \subsection{Metrics and Results}
 In AP dataset, each document is unlabeled. Therefore, here we are doing unsupervised learning with a purpose to estimate the likelihood of the test dataset. In natural language processing, the likelihood of a document is usually called perplexity, which is the inverse of the average per-word log likelihood. The perplexity of on the text corpus is defined by
@@ -242,14 +240,15 @@ While implementing our algorithms, we first monitors the convergence of the algo
 Discuss the subsequent conclusions we gained from this reimplementation of LDA.
 Summarize advantages and disadvantages as well.
 
-\subsubsection*{Author Contributions}
-Describe efforts and work division here.
 %\subsubsection*{Acknowledgments}
 %
 %Use unnumbered third level headings for the acknowledgments. All
 %acknowledgments go at the end of the paper. Do not include
 %acknowledgments in the anonymized submission, only in the
 %final paper.
+
+\subsubsection*{Author Contributions}
+All authors contributed to the overall study of LDA and its implementation. Xiang preprocessed AP dataset in Python to generate input matrices for LDA, and implemented Gibbs Sampling LDA in MATLAB. Zheng implemented variational inference LDA in MATLAB. Sajan implemented the Unigram model in MATLAB. Yan wrote MATLAB functions for calculating perplexity and extracting subtopics from LDA outputs. All authors participated in final data analysis and interpretation, as well as writing of the manuscript.
 
 \subsubsection*{References}
 
@@ -261,7 +260,7 @@ Describe efforts and work division here.
 
 \small{
 
-[1]. Griffiths, Tom, and Mark Steyvers. "A probabilistic approach to semantic representation." Proceedings of the 24th annual conference of the cognitive science society. 2002.
+[1] Griffiths, TL., Steyvers, M. "Finding scientific topics." Proceedings of the National Academy of Sciences.  101(suppl 1) (2004): 5228-35.
 
 [2]. Jordan, Michael I., et al. "An introduction to variational methods for graphical models." Machine Learning 37.2 (1999): 183-233.
 
@@ -606,8 +605,6 @@ Describe efforts and work division here.
 %
 %A number of width problems arise when LaTeX cannot properly hyphenate a
 %line. Please give LaTeX hyphenation hints using the \verb+\-+ command.
-
-
 
 
 \end{document}
