@@ -134,7 +134,7 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 
 
 \subsection{Inference Method}
-With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed such that the placed distribution is close to the posterior in KL divergence. However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
+With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence. However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
 
 \begin{algorithm}
 \caption{Estimation}\label{E-step}
@@ -194,7 +194,13 @@ With the same Dirichlet distribution model assumption shown in the previous sect
 %\end{algorithmic}
 %\end{algorithm}
 
+<<<<<<< HEAD
 
+=======
+In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound $L(\gamma,\phi;\alpha,\beta)$. When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $e^{-L/N}$).
+
+\section{Our Implementation}
+>>>>>>> 05ef1ffc1c14437ae45c2114cb908b2dc15b3254
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{vi}
