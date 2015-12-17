@@ -18,6 +18,7 @@
 
 
 
+
 \usepackage{subcaption}% http://ctan.org/pkg/subcaption
 \captionsetup{compatibility=false}
 \DeclareCaptionSubType*{algorithm}
@@ -136,8 +137,7 @@ the words are then generated. There is more flexibility in learning the
 hidden or latent topics, and the model generalizes better to new documents.
 
 \section{Notation}
-We used the same notations used by topic modeling literature throughout this paper  \\
-
+We used the same notations used by topic modeling literature throughout this paper as shown in Table \ref{tab:TableOfNotationForMyResearch}.
 
 \begin{table}[htbp]\caption{Table of Notation}
 \centering % to have the caption near the table
@@ -158,7 +158,7 @@ $C_{vk}$ & $=$ & number of topics k in document d\\
 $I_{di}$ & $=$ & sampling times of $w_{di}$ in one Gibbs Sampling iteration\\
 $S_{di}^{t}$ & $=$ & sampling rate of type $w_{di}$ in iteration t\\
 $\Gamma_{di}$ & $=$ & average sampling rate in iteration t\\
-$S_{di}^{t}$ & $=$ & parameter vector of the multinomial distribution $\P(I_{di}|\Gamma_{di})$, it has $N_di$ entries: [$\Gamma_{di1}$, ..., $\Gamma_{diN_{di}}$]\\\
+$S_{di}^{t}$ & $=$ & parameter vector of the multinomial distribution $P(I_{di}|\Gamma_{di})$, it has $N_di$ entries: [$\Gamma_{di1}$, ..., $\Gamma_{diN_{di}}$]\\\
 $\alpha,\beta$ & $=$ & Dirichlet priors\\
 $\gamma $ & $=$ &dumping factor\\
 
@@ -208,10 +208,14 @@ There are two commonly used methods to learn the latent parameters for a text co
 \item For each word $w_k$ in document $d_i$
 \begin{enumerate}
 \item For each topic $t_j$ that this word belongs to, compute:
+
 \begin{enumerate}
+\Large{
 \item $p(z_j | d_i)  = \frac{\text{number of words assigned to }z_j \text{in }d_i}{\text{total number of words in }d_i}$
-\item $p( w_k |  z_j) = \frac{\text{number of words assigned to} z_j \text{in } d_i}{\text{number of words assigned to }z_j \text{for all docs}}$
+\item $p( w_k |  z_j) = \frac{ \text{number of words assigned to} z_j \text{in } d_i}{\text{number of words assigned to }z_j \text{for all docs}}$}
+
 \end{enumerate}
+
 \end{enumerate}
 \item we compute the product of i) and ii) above which gives the new topics to assign to this word.
 \item repeating step 2 over and over until it reaches a steady state where the assignments make good sense.
@@ -295,13 +299,13 @@ When applying LDA to training documents, the estimation and maximization steps a
 
 \section{Evaluations and Empirical Results}
 \subsection{Dataset and Preprocessing}
-To evaluate our algorithm, we replicated one of the experiments implemented by Blei et al. on document modeling. We used AP dataset which contains 2246 (verify this number) news articles from the associated press [6]. The dataset was partitioned into 80 percent training set and 20 percent test data. In preprocessing of the data, we removed a list of stop words from the text. We further removed words that appear less than 20 times (rare words), as well as words that appear in more than 90 percent of the documents (common words). We ended up with a vocabulary size of 3564.
+To evaluate our algorithm, we replicated one of the experiments implemented by Blei et al., 2003, on document modeling. We used AP dataset which contains 2246 news articles from the Associated Press [6]. The dataset was partitioned into 80 percent training set and 20 percent test data. In preprocessing of the data, we removed a list of stop words from the text. We further removed words that appear less than 20 times (rare words), as well as words that appear in more than 90 percent of the documents (common words, including articles and common adjectives). We ended up with a vocabulary size of 3564 words.
 
 \subsection{Convergence of Algorithms}
 In AP dataset, each document is unlabeled. Therefore, here we are doing unsupervised learning with a purpose to estimate the likelihood of the test dataset. In natural language processing, the likelihood of a document is usually called \textit{perplexity}, which is the inverse of the average per-word log likelihood. The perplexity of on the text corpus is defined by
 
 \begin{align}
-perplexity(D_{test}) &= \exp\Big\{{-\frac{\sum_{d=1}^{M} \log{p(w_d)}}{\sum_{d=1}^{M}N_d}}\Big\}\\
+perplexity(D_{test}) &= \exp\Big\{{-\frac{\sum_{d=1}^{M} \log{p(w_d)}}{\sum_{d=1}^{M}N_d}}\Big\} \label{eq:pplex} \\
 & = \exp \Big\{ -\frac{1}{N}\sum_{d=1}^{D}\sum_{i=1}^{N_d}N_{di}\log \sum_{k=1}^{K}\theta_{w_{di}, k}\phi_{d,k} \Big\}
 \end{align}
 
@@ -312,9 +316,28 @@ $$\theta_{v,k} = \frac{C_{vk}+\beta}{\sum_{v'}C_{v' k}+\beta}, \phi_{d,k} = \fra
 
 While implementing our algorithms, we first monitors the convergence of the algorithm. This was done by monitoring the perplexity of training data, as shown Figure 3. We can see that in both cases the algorithm converges after enough number of iterations, although the numbers of iterations required to reach convergence are very different. Variational inference LDA usually converges after about 10 iteration, while Gibbs sampling LDA needs several hundred of iterations. This is a primary reason that the variational inference algorithm is much faster and more commonly used in practice.
 
+\subsection{Comparison to Unigram Model}
+The unigram model represents the words in each document with the following distribution:
+\begin{equation}
+p(w_i) = \prod^{N}_{j=1}{p(w_j)}
+\end{equation}
+The counts of each word occurrence in each documents are summed up and then normalized across all the
+ counts seen in the training data. These normalized counts then become the probabilities for each word in the 
+ vocabulary after applying smoothing. 
+ 
+We compared the perplexities of both implementations of LDA to the simple unigram model. 
+Since perplexity is inversely proportional to the log-likelihood of the word distribution, lower perplexities 
+indicate better performance. Perplexity was calculated in the same manner as in Equation \ref{eq:pplex}.
+Note that unlike LDA, the unigram model is trained in only one iteration. The results of the final testing and 
+training perplexities for the unigram, LDA with Gibbs Sampling, and LDA with Variational Inference models 
+are shown in Table \ref{pplex_table}. As seen in the table, both LDA methods have much lower perplexities in
+for both the training and testing datasets. All models exhibit a higher perplexity on the testing set than the 
+training set. The perplexity increase for the variational inference method of LDA is the lowest because it has 
+less overfitting to the training set than the Gibbs Sampling method. High overfitting to the training set and 
+the lack of incorporating latent topic variables in the topic model are why the simple unigram model has such a high perplexity. LDA, in both cases, overcomes both of these issues, and these results confirm the claim by Blei et al., 2003, that LDA outperforms the unigram model.
+
 \subsection{Extracted Subtopics}
 We trained a 10-topic LDA model on the training dataset using both Gibbs sampling and variational inference, and 5 of the generated subtopics in shown in Figure 4. For each topic, the 10 words that are most likely to occur is listed. As we expected, LDA automatically generated meaning full subtopics from the AP corpus, with similar words more likely to appear in the same topic. We also note that the choice and order of words in the topic generated by Gibbs sampling and variational inference are different, although the topics they represented are similar. We think this discrepancy is because the two algorithms we used might converge into different local opitma, and each algorithm used (different) random initialization.
-
 
 \begin{figure}
 \begin{subfigure}{.5\linewidth}
@@ -328,6 +351,19 @@ We trained a 10-topic LDA model on the training dataset using both Gibbs samplin
 \caption{Convergence of LDA using Gibbs Sampling (\textit{left}) and Variational Inference (\textit{right})}\label{fig:convergence}
 \end{figure}
 
+\begin{table}[t]
+\caption{Training and Testing Perplexities}
+\label{pplex_table}
+\begin{center}
+\begin{tabular}{l l l}
+{\bf METHOD}  &{\bf TRAINING SET} & {\bf TESTING SET}\\ 
+\hline\\
+Unigram          & 5315 & 5839\\
+LDA with Gibbs Sampling            & 1427 & 2537\\
+LDA with Variational Inference    &  1576 & 1880\\
+\end{tabular}
+\end{center}
+\end{table}
 
 \begin{figure}
 \begin{subfigure}{1\linewidth}
