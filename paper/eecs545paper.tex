@@ -130,30 +130,33 @@ Show derivation and algorithm
 \section{Our Implementation}
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{vi}
+    \includegraphics[width=0.6\textwidth]{vi}
     \caption{Graphical model representation of the variational distribution used to approximate the posterior in LDA.}
     \label{fig:graphmodel}
 \end{figure}
 
-\section{Experimental Evaluation}
-\subsection{Setup}
-Describe recreation of Document Modeling and Yelp experiment from Blei et. al. here.
 
-\subsection{Metrics}
-Describe perplexity here.
+\section{Evaluations and Empirical Results}
+\subsection{Dataset}
+To evaluate our algorithm, we replicated one of the experiments implemented by Blei et al. on document modeling. We used AP dataset which contains 2346 (verify this number) news articles from the associated press [5]. 
 
-\subsection{Results}
-Show graphs of the perplexity and histogram of topics.
+\subsection{Metrics and Results}
+While implementing our algorithms, we first monitors the convergence of the algorithm. In variational inference algorithm, the convergence was measured on the upper and lower bounds (Zheng). In Gibbs Sampling algorithm, the convergence was measured by monitoring the perplexity (defined below) of training data. Figure 1
 
-Discuss results in table if also needed.
+Describe perplexity here (need help with Yan).
 
-Also compare gibbs vs inference in each.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{AP_topics_10_GS_Perplexity}
+    \caption{Convergence of algorithms. (\textit{Left}) Convergence of Gibbs Sampling as seen from the training data perplexity. (\textit{Right}) Convergence of Variational Inference as seen from the lower bound.}
+    \label{fig:convergence}
+\end{figure}
 
 \section{Conclusion}
 Discuss the subsequent conclusions we gained from this reimplementation of LDA. 
 Summarize advantages and disadvantages as well.
 
-\subsubsection*{Acknowledgements}
+\subsubsection*{Author Contributions}
 Describe efforts and work division here.
 %\subsubsection*{Acknowledgments}
 %
@@ -172,13 +175,15 @@ Describe efforts and work division here.
 
 \small{
 
-[1]. Griffiths, Tom, and Mark Steyvers. "A probabilistic approach to semantic representation." Proceedings of the 24th annual conference of the cognitive science society. 2002.\\
+[1]. Griffiths, Tom, and Mark Steyvers. "A probabilistic approach to semantic representation." Proceedings of the 24th annual conference of the cognitive science society. 2002.
 
-[2]. Jordan, Michael I., et al. "An introduction to variational methods for graphical models." Machine learning 37.2 (1999): 183-233.\\
+[2]. Jordan, Michael I., et al. "An introduction to variational methods for graphical models." Machine learning 37.2 (1999): 183-233.
 
 [3]. Teh, Yee Whye, et al. "Hierarchical dirichlet processes." Journal of the american statistical association 101.476 (2006).
 
 [4]. Blei, David M., Andrew Y. Ng, and Michael I. Jordan. "Latent dirichlet allocation." the Journal of machine Learning research 3 (2003): 993-1022.
+
+[5] \url{http://www.cs.columbia.edu/~blei/lda-c/}. It should be noted that the size of the dataset here is about one eighth of the dataset used by Blei et al. So there might be some discrepancy between our result and those presented in Blei et al.
 
 %
 %[2] Bower, J.M. \& Beeman, D. (1995) {\it The Book of GENESIS: Exploring

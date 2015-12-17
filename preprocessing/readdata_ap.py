@@ -16,7 +16,7 @@ from sklearn.cross_validation import train_test_split
 
 ENGLISH_STOP_WORDS = stopwords.words("english")
 for w in ['would', 'also', 'said', 're', 'good', 'best', 'like', 'well', 'love', 'great',
-        'go', 'get', 'one', 'really', 'always']:
+        'go', 'get', 'got', 'one', 'really', 'always', 'food', 'place', 'order', 'ordered', 've']:
     ENGLISH_STOP_WORDS.append(w)
 
 def string_to_token(s):
@@ -63,7 +63,7 @@ def vectorize(tokens, dirname):
     Output: count vector
     The volcabulary is built and saved in .mat
     """
-    vectorizer = CountVectorizer(max_df=0.8,
+    vectorizer = CountVectorizer(max_df=0.7,
                                 min_df=10,
                                 stop_words=ENGLISH_STOP_WORDS)
     X = vectorizer.fit_transform(tokens)
