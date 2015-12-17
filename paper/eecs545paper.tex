@@ -62,7 +62,7 @@ Sajan Patel\\
 \maketitle
 
 \begin{abstract}
-In this project, we studied the topic latent Dirichlet allocation (LDA), a nonparametric Bayesian model for collections of discrete data such as text corpora, which was first proposed by Blei, Ng, and Jordan in 2003 [1]. We followed the original paper to implement LDA using variance inference techniques and an EM algorithm for estimating the Bayes parameters and extracting subtopic from a text corpus. In addition, we also implemented LDA using collapsed Gibbs Sampling following Griffiths and Steyvers (2004). We recreated the document modeling experiment in [1] to extract subtopics on AP dataset. It was found variational inference and Gibbs sampling generated similar perplexities and subtopics. We also compared LDA with simple unigram model (and find that ... ). 
+In this project, we studied the topic latent Dirichlet allocation (LDA), a nonparametric Bayesian model for collections of discrete data such as text corpora, which was first proposed by Blei, Ng, and Jordan in 2003 [1]. We followed the original paper to implement LDA using variance inference techniques and an EM algorithm for estimating the Bayes parameters and extracting subtopic from a text corpus. In addition, we also implemented LDA using collapsed Gibbs Sampling following Griffiths and Steyvers (2004). We recreated the document modeling experiment in [1] to extract subtopics on AP dataset. It was found variational inference and Gibbs sampling generated similar perplexities and subtopics. We also compared LDA with simple unigram model (and find that ... ).
 
 %The abstract paragraph should be indented 1/2~inch (3~picas) on both left and
 %right-hand margins. Use 10~point type, with a vertical spacing of 11~points.
@@ -194,13 +194,9 @@ With the same Dirichlet distribution model assumption shown in the previous sect
 %\end{algorithmic}
 %\end{algorithm}
 
-<<<<<<< HEAD
-
-=======
 In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound $L(\gamma,\phi;\alpha,\beta)$. When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $e^{-L/N}$).
 
 \section{Our Implementation}
->>>>>>> 05ef1ffc1c14437ae45c2114cb908b2dc15b3254
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{vi}
@@ -218,10 +214,10 @@ In AP dataset, each document is unlabeled. Therefore, here we are doing unsuperv
 
 Describe perplexity here (need help with Yan).
 
-While implementing our algorithms, we first monitors the convergence of the algorithm. This was done by monitoring the perplexity (defined below) of training data, as shown Figure 3. We can see that in both cases the algorithm converges after enough number of iterations, although the numbers of iterations required to reach convergence are very different.
+While implementing our algorithms, we first monitors the convergence of the algorithm. This was done by monitoring the perplexity (defined below) of training data, as shown Figure 3. We can see that in both cases the algorithm converges after enough number of iterations, although the numbers of iterations required to reach convergence are very different. Variational inference LDA usually converges after about 10 iteration, while Gibbs sampling LDA needs several hundred. This is a primary reason that the variational inference algorithm is much faster and more commonly used in practice.
 
 \subsection{Extracted Subtopics}
-We trained a 10-topic LDA model on the training dataset using both Gibbs sampling and variational inference, and 5 of the generated subtopics in shown in Figure 4. For each topic, the 10 words that are most likely to occur is listed. As we expected, LDA automatically generated meaning full subtopics from the AP corpus, with similar words more likely to appear in the same topic. 
+We trained a 10-topic LDA model on the training dataset using both Gibbs sampling and variational inference, and 5 of the generated subtopics in shown in Figure 4. For each topic, the 10 words that are most likely to occur is listed. As we expected, LDA automatically generated meaning full subtopics from the AP corpus, with similar words more likely to appear in the same topic.
 
 
 \begin{figure}
