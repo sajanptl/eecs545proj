@@ -60,6 +60,7 @@
       WBETA = (double) (W*BETA);
       for (iter=0; iter<NN; iter++) {
           if (OUTPUT >=1) {
+              system("pause");
               if ((iter % 10)==0) mexPrintf( "\tIteration %d of %d\n" , iter , NN );
               if ((iter % 10)==0) mexEvalString("drawnow;");
           }

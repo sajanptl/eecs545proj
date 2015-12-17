@@ -9,7 +9,7 @@
 
 # ignore large datasets
 *.tar
-data/yelp
+*.json
 
 # matlab related
 *.m~

@@ -18,7 +18,7 @@ function [ WP,DP,Z,Per ] = GibbsSamplerLDA( WS , DS, T , N_round , ALPHA , BETA,
 %
 % N_round - number of iterations
 %
-% ALPHA - Parameter that defines the symmetric Dirichlet distribution for 
+% ALPHA - Parameter that defines the symmetric Dirichlet distribution for
 %         topic assignment
 %
 % BETA - Parameter that defines the symmetric Dirichlet distribution for
@@ -52,10 +52,10 @@ Per = zeros(N_round, 1);
 for i = 1:N_round
     disp(sprintf('N_round = %d', i))
     % update the Gibbs sampler
-    [Z, WP, DP] = reassign(Z, WS, DS, WP, DP, T, ALPHA, BETA);  
- 
+    [Z, WP, DP] = reassign(Z, WS, DS, WP, DP, T, ALPHA, BETA);
+
     % calculate perplexity
-    Per(i) = perplexity(WS, DS, WP, DP, T, ALPHA , BETA);   
+    Per(i) = perplexity(WS, DS, WP, DP, T, ALPHA , BETA);
     disp(sprintf('Perplexity = %f', Per(i)))
 end
 
@@ -80,7 +80,7 @@ for i = 1:N   % for every word
 
     w = WS(i);    % token represented by word i
     d = DS(i);    % document d is the document containing word i
-    
+
     Zi = Z(i) == (1:T);
     % total number of words in topic j (except current word)
     nj = sum(WP) - Zi;
@@ -89,7 +89,7 @@ for i = 1:N   % for every word
     dp = DP(d,:)- Zi;
     p = (dp + ALPHA) .* (nwj + BETA) ./ (nj + double(W*BETA));
     p = p / sum(p);
-    
+
     Z_new(i) = randsample(1:T, 1, true, p);
 end
 

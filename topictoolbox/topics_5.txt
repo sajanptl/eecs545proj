@@ -1,0 +1,14 @@
+                  TOPIC_1	0.20113	                  TOPIC_2	0.20932	                  TOPIC_3	0.18362	                  TOPIC_4	0.18732	                  TOPIC_5	0.21861	
+
+                   police	0.01438	               government	0.01543	                  percent	0.02517	                    court	0.01067	                     bush	0.01439	
+                   people	0.01348	                   soviet	0.01320	                  million	0.02084	                  federal	0.00828	                president	0.00967	
+                      one	0.01136	                   united	0.01249	                     year	0.01502	                    state	0.00823	                    house	0.00941	
+                      two	0.01117	                   states	0.00947	                  billion	0.01273	                     case	0.00606	                      new	0.00849	
+                     city	0.00781	                president	0.00848	                      new	0.01097	               department	0.00599	                    going	0.00626	
+                      old	0.00688	                    party	0.00834	                  company	0.00900	                  workers	0.00568	                  dukakis	0.00623	
+                      day	0.00592	                 military	0.00826	                   market	0.00893	                    could	0.00552	                    years	0.00589	
+                     year	0.00584	                    union	0.00704	                     last	0.00736	                     drug	0.00547	                    think	0.00587	
+                      air	0.00561	                      war	0.00590	                    stock	0.00683	                    years	0.00542	                 campaign	0.00581	
+                    three	0.00559	                 official	0.00587	                   prices	0.00613	                 attorney	0.00518	                   reagan	0.00550	
+
+

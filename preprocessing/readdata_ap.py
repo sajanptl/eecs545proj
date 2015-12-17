@@ -90,12 +90,14 @@ def save_data(X, appendix, dirname):
     """save X, WS, DS
     """
     # save X
-    Xdense = X.todense()                            # convert X to dense matrix
-    Xrow_sum = np.ravel(np.sum(Xdense, axis = 1))   # sum of each row
-    nonzero_index = np.nonzero(Xrow_sum)            # find index of nonzeros
-    Xdense_nonzero = Xdense[nonzero_index, :]       # get nonzero rows
+    # Xdense = X.todense()                            # convert X to dense matrix
+    # Xrow_sum = np.ravel(np.sum(Xdense, axis = 1))   # sum of each row
+    # nonzero_index = np.nonzero(Xrow_sum)            # find index of nonzeros
+    # Xdense_nonzero = Xdense[nonzero_index, :]       # get nonzero rows
+    # sio.savemat(dirname + 'W' + appendix + '.mat',
+    #             mdict={'W'+appendix: Xdense_nonzero})
     sio.savemat(dirname + 'W' + appendix + '.mat',
-                mdict={'W'+appendix: Xdense_nonzero})
+                mdict={'W'+appendix: X})
 
     # WS is a N x 1 vector where WS(k) contains the vocabulary index of the kth
     # word token, and N is the number of word tokens. The word indices are not zero

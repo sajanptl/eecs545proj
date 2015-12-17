@@ -1,0 +1,28 @@
+                  TOPIC_1	0.10544	                  TOPIC_2	0.08509	                  TOPIC_3	0.10816	                  TOPIC_4	0.08597	                  TOPIC_5	0.10303	
+
+                   police	0.02728	                     city	0.01341	                  workers	0.01034	                      air	0.01511	                  percent	0.04445	
+                   people	0.02585	                      two	0.01156	                  program	0.01014	                      one	0.01312	                  million	0.03388	
+               government	0.01631	                     high	0.00903	                     year	0.00945	                      two	0.01133	                     year	0.02315	
+                      two	0.01183	                    first	0.00880	                    could	0.00829	                     year	0.01066	                  billion	0.01625	
+                      one	0.01107	                       th	0.00812	                     plan	0.00820	                 children	0.00998	                   market	0.01398	
+                   killed	0.01006	                    miles	0.00722	                     many	0.00788	                      may	0.00912	                  company	0.01295	
+                     army	0.00832	                     area	0.00710	                      new	0.00785	                     last	0.00841	                    stock	0.01207	
+                    since	0.00781	                    three	0.00707	                    money	0.00743	                 hospital	0.00815	                   prices	0.01027	
+              authorities	0.00741	                     time	0.00707	                    years	0.00719	                    found	0.00808	                     last	0.00911	
+                    three	0.00650	                 national	0.00692	                  federal	0.00663	                   health	0.00774	                      oil	0.00871	
+
+
+                  TOPIC_6	0.11747	                  TOPIC_7	0.10577	                  TOPIC_8	0.09761	                  TOPIC_9	0.07506	                 TOPIC_10	0.11641	
+
+                   soviet	0.02339	                     bush	0.02948	                    court	0.02035	                      new	0.04068	                      one	0.01182	
+                   united	0.02287	                president	0.02185	                    state	0.01403	                 thursday	0.01987	                    years	0.01163	
+                   states	0.01653	                    house	0.01702	                     case	0.01153	                     york	0.01880	                   people	0.01118	
+               government	0.01081	                    party	0.01337	                  federal	0.01077	                   friday	0.01777	                      get	0.01052	
+                president	0.01032	                  dukakis	0.01280	                     drug	0.01044	                     news	0.01692	                     like	0.01033	
+                    union	0.01026	                 campaign	0.01194	                      law	0.01004	                    trade	0.01508	                    going	0.00931	
+                gorbachev	0.00980	                committee	0.01118	                   office	0.01004	                     late	0.01435	                     time	0.00906	
+                     east	0.00933	               democratic	0.00991	                 attorney	0.00985	                  tuesday	0.01396	                    think	0.00900	
+                 military	0.00925	                     bill	0.00906	                    judge	0.00981	                   dollar	0.01371	                      mrs	0.00840	
+                      war	0.00922	                   reagan	0.00888	               department	0.00804	                    today	0.01272	                     year	0.00831	
+
+
