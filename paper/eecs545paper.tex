@@ -18,6 +18,7 @@
 
 
 
+
 \usepackage{subcaption}% http://ctan.org/pkg/subcaption
 \captionsetup{compatibility=false}
 \DeclareCaptionSubType*{algorithm}
@@ -208,10 +209,14 @@ There are two commonly used methods to learn the latent parameters for a text co
 \item For each word $w_k$ in document $d_i$
 \begin{enumerate}
 \item For each topic $t_j$ that this word belongs to, compute:
+
 \begin{enumerate}
+\Large{
 \item $p(z_j | d_i)  = \frac{\text{number of words assigned to }z_j \text{in }d_i}{\text{total number of words in }d_i}$
-\item $p( w_k |  z_j) = \frac{\text{number of words assigned to} z_j \text{in } d_i}{\text{number of words assigned to }z_j \text{for all docs}}$
+\item $p( w_k |  z_j) = \frac{ \text{number of words assigned to} z_j \text{in } d_i}{\text{number of words assigned to }z_j \text{for all docs}}$}
+
 \end{enumerate}
+
 \end{enumerate}
 \item we compute the product of i) and ii) above which gives the new topics to assign to this word.
 \item repeating step 2 over and over until it reaches a steady state where the assignments make good sense.
