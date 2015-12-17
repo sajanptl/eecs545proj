@@ -176,7 +176,8 @@ When applying LDA to training documents, the estimation and maximization steps a
 \BState repeat
 \For {$n=1$ to $N$}
 \For {$i=1$ to $K$}
-\State $\phi_{ni}^{t+1}:=\beta_{iw_n}\exp\{\varphi(\gamma_{i}^{t})-\varphi(\sum_{j=1}^{K} \gamma_{j}^{t})\}$
+\State $\phi_{ni}^{t+1}=\beta_{iw_n}\exp\{\varphi(\gamma_{i}^{t})$
+\State $-\varphi(\sum_{j=1}^{K} \gamma_{j}^{t})\}$
 \EndFor {\textbf{end}}
 \EndFor {\textbf{end}}
 \State $\gamma^{t+1}:=\alpha +\sum_{n=1}^{N}\phi_{n}^{t+1}$
@@ -196,6 +197,7 @@ When applying LDA to training documents, the estimation and maximization steps a
 \State $\beta_{ij} \propto \sum_{d=1}^{D}\sum_{n=1}^{N_d}\phi_{dni}w_{dn}^{j}$
 \EndFor {\textbf{end}}
 \EndFor {\textbf{end}}
+\BState Update $\alpha$
 \BState repeat
 \State Caculate gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$
 \State $\alpha^{t+1} = \alpha^{t} - H^{-1}(\alpha^{t})g(\alpha^{t})$
