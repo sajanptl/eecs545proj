@@ -150,7 +150,7 @@ With the same Dirichlet distribution model assumption shown in the previous sect
 
 
 
-\lipsum[1]
+
 \begin{table}%
 \begin{subalgorithm}{.5\textwidth}
 \begin{algorithmic}[1]
@@ -166,10 +166,11 @@ With the same Dirichlet distribution model assumption shown in the previous sect
 \State $\gamma^{t+1}:=\alpha +\sum_{n=1}^{N}\phi_{n}^{t+1}$
 \State $t \gets t+1$
 \BState until convergence
-
 \end{algorithmic}
-\caption{E-step}\label{algo1}
-\end{subalgorithm}%
+
+\caption{E-step}
+
+\end{subalgorithm}
 \begin{subalgorithm}{.5\textwidth}
 \begin{algorithmic}[1]
 
@@ -187,17 +188,14 @@ With the same Dirichlet distribution model assumption shown in the previous sect
 \BState until convergence
 
 \end{algorithmic}
-\caption{M-step}\label{algo2}
+\caption{M-step}
 \end{subalgorithm}
 \captionsetup{labelformat=alglabel}
-\caption{Two algorithms}%
+\caption{Two algorithms}
 \label{tab:1}%
 \end{table}
 
 
-On the left is Algorithm~\ref{algo1}. On the right is Algorithm~\ref{algo2}.
-
-\lipsum[2]
 
 
 
