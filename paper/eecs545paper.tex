@@ -155,6 +155,12 @@ $w_i$ & $=$ & i-th word in the document\\
 $\alpha, \beta$ & $=$ & hyperparameters that defines the Dirichlet prior\\
 $C_{dk}$ & $=$ & number of type v which are assigned with topic k\\
 $C_{vk}$ & $=$ & number of topics k in document d\\
+$I_{di}$ & $=$ & sampling times of $w_{di}$ in one Gibbs Sampling iteration\\
+$S_{di}^{t}$ & $=$ & sampling rate of type $w_{di}$ in iteration t\\
+$\Gamma_{di}$ & $=$ & average sampling rate in iteration t\\
+$S_{di}^{t}$ & $=$ & parameter vector of the multinomial distribution $\P(I_{di}|\Gamma_{di})$, it has $N_di$ entries: [$\Gamma_{di1}$, ..., $\Gamma_{diN_{di}}$]\\\
+$\alpha,\beta$ & $=$ & Dirichlet priors\\
+$\gamma $ & $=$ &dumping factor\\
 
 
 \bottomrule
@@ -165,7 +171,7 @@ $C_{vk}$ & $=$ & number of topics k in document d\\
 
 
 \section{Latent Dirichlet Allocation}
-The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a topic��. The general process of the model to write a document is the following:
+The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a ``topic''. The general process of the model to write a document is the following:
 
 
 \begin{enumerate}
