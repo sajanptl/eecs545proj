@@ -128,14 +128,17 @@ the words are then generated. There is more flexibility in learning the
 hidden or latent topics, and the model generalizes better to new documents.
 
 \section{Notation}
-We used similar notation as those denoted in the paper: \\
+We used the same notations used by topic modeling literature throughout this paper  \\
+\noindent\rule{8cm}{0.4pt}\\
 $K$ = number of topics\\
 $D$ = number of documents\\
 $V$ = vocabulary size\\
-$N$ =  number of words in total.\\
+$N$ =  total number of words in the text corpus\\
+$N_d$ =  number of words in document d\\
 $z_j$ = the j-th topic\\
 $d_i$ = the i-th document\\
 $w_i$ = the i-th word in the document\\
+\noindent\rule{8cm}{0.4pt}
 
 \section{LDA}
 The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a “topic”. The general process of the model to write a document is the following:
@@ -331,6 +334,7 @@ Summarize advantages and disadvantages as well.
 \subsubsection*{Author Contributions}
 All authors contributed to the overall study of LDA and its implementation. Xiang preprocessed AP dataset in Python to generate input matrices for LDA, and implemented Gibbs Sampling LDA in MATLAB. Zheng implemented variational inference LDA in MATLAB. Sajan implemented the Unigram model in MATLAB. Yan wrote MATLAB functions for calculating perplexity and extracting subtopics from LDA outputs. All authors participated in final data analysis and interpretation, as well as writing of the manuscript.
 
+\newpage
 \subsubsection*{References}
 
 %References follow the acknowledgments. Use unnumbered third level heading for
