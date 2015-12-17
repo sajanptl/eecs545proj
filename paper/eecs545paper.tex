@@ -8,11 +8,7 @@
 \usepackage{multicol}
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
 \usepackage{lipsum}% http://ctan.org/pkg/lipsum
-\usepackage{tabulary}
-\usepackage{booktabs}
-\usepackage{mathtools}  
 
-\usepackage{amssymb}
 
 \usepackage{subcaption}% http://ctan.org/pkg/subcaption
 \captionsetup{compatibility=false}
@@ -24,7 +20,7 @@
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
 
 
-\title{Latent Dirichlet Allocation for Document Topic Modelling}
+\title{Latent Dirichlet Analysis for Document Topic Modelling}
 
 
 \author{
@@ -143,7 +139,7 @@ We used the same notations used by topic modeling literature throughout this pap
 $K$ & $=$ & number of topics\\
 $D$ & $=$ & number of documents\\
 $V$ & $=$ & vocabulary size\\
-$N$ & $=$ &  total number of words in the text corpus\\  
+$N$ & $=$ &  total number of words in the text corpus\\
 $N_d$ & $=$ &  number of words in document d\\
 $d_i$ & $=$ & i-th document\\
 $z_j$ & $=$ & j-th topic\\
@@ -161,7 +157,8 @@ $C_{vk}$ & $=$ & number of topics k in document d\\
 
 
 \section{Latent Dirichlet Allocation}
-The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a topicÄù. The general process of the model to write a document is the following:
+The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a topicÔøΩÔøΩ. The general process of the model to write a document is the following:
+
 
 \begin{enumerate}
 \item The number of words $N$ in document $\sim$ Poisson ($\zeta$)
@@ -183,7 +180,7 @@ The latent Dirichlet allocation (LDA) model explains the generation of text docu
 
 This is the generative model for a collection of documents. LDA then tries to backtrack from the (training) documents to find a set of topics that are likely to have generated the collection. Now the question is how does LDA backtrack to find the parameters in this model. Suppose we have a set of documents D, and we set the number of topics to be K. What we want is to use LDA to learn two things 1) the topic representation of each document and 2) the words associated to each topic.
 
-There are two commonly used methods to learn the latent parameters for a text corpus: collapsed Gibbs sampling [1] and variational inference [2, 3]. We have implemented both methods in our paper. 
+There are two commonly used methods to learn the latent parameters for a text corpus: collapsed Gibbs sampling [1] and variational inference [2, 3]. We have implemented both methods in our paper.
 
 
 \subsection{Collapsed Gibbs Sampling}
@@ -208,30 +205,25 @@ There are two commonly used methods to learn the latent parameters for a text co
 \end{itemize}
 
 
-
-\subsection{Variational Inference}
-With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution q over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence:\\
+\subsection{Inference Method}
+With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution q over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. In order to make the problem intractable, Jensen's inequality is applied to yield an evidence lower bound for the log-likelihood. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence:\\
 
 \begin{equation}
 D(q(\theta,Z|\gamma,\phi)||p(\theta,Z|W,\alpha,\beta)) = \log p(W|\alpha,\beta) - L(\gamma,\phi;\alpha,\beta)
 \end{equation}
-
 where
-
 \begin{equation}
 L(\gamma,\phi;\alpha,\beta) =E_q[\log p(\theta,Z,W|\alpha,\beta)] - E_q[\log q(\theta,Z)]
 \end{equation}
 
-Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm. In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{vi}
+    \caption{Graphical model representation of the variational distribution used to approximate the posterior in LDA.}
+    \label{fig:graphmodel}
+\end{figure}
 
-\begin{align}
-\frac{\partial L}{\partial \alpha_i} &= D(\Psi (\sum_{j=1}^{K}\alpha_j)-\Psi(\alpha_i)) + \sum_{d=1}^{D}(\Psi(\gamma_{di}) -\Psi(\sum_{j=1}^{K}\gamma_{dj}))\\
-\frac{\partial L}{\partial \alpha_i \alpha_j} &= D\Psi'(\sum_{j=1}^{K}\alpha_j) - \delta (i,j)D\Psi'(\alpha_i)
-\end{align}
-
-
-When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $\exp\{-L/N\}$).
-
+Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
 
 \begin{table}%
 \begin{subalgorithm}{.5\textwidth}
@@ -274,24 +266,18 @@ When applying LDA to training documents, the estimation and maximization steps a
 \caption{M-step}\label{algo2}
 \end{subalgorithm}
 \captionsetup{labelformat=alglabel}
-\caption{Two algorithms}%
+\caption{EM algorithm}%
 \label{tab:1}%
 \end{table}
 
-In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound 
+In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound:\\
 
-$L(\gamma,\phi;\alpha,\beta)$:\\
-$g(\alpha^{t})$
+\begin{align}
+\frac{\partial L}{\partial \alpha_i} &= D(\Psi (\sum_{j=1}^{K}\alpha_j)-\Psi(\alpha_i)) + \sum_{d=1}^{D}(\Psi(\gamma_{di}) -\Psi(\sum_{j=1}^{K}\gamma_{dj}))\\
+\frac{\partial L}{\partial \alpha_i \alpha_j} &= D\Psi'(\sum_{j=1}^{K}\alpha_j) - \delta (i,j)D\Psi'(\alpha_i)
+\end{align}
 
-When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $e^{-L/N}$).
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\textwidth]{vi}
-    \caption{Graphical model representation of the variational distribution used to approximate the posterior in LDA.}
-    \label{fig:graphmodel}
-\end{figure}
-
+When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $\exp\{-L/N\}$).
 
 \section{Evaluations and Empirical Results}
 \subsection{Dataset and Preprocessing}
