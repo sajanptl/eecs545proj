@@ -10,6 +10,14 @@
 \usepackage{lipsum}% http://ctan.org/pkg/lipsum
 
 
+\usepackage{mathtools}  
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tabulary}
+\usepackage{booktabs}
+
+
+
 \usepackage{subcaption}% http://ctan.org/pkg/subcaption
 \captionsetup{compatibility=false}
 \DeclareCaptionSubType*{algorithm}
@@ -129,19 +137,36 @@ hidden or latent topics, and the model generalizes better to new documents.
 
 \section{Notation}
 We used the same notations used by topic modeling literature throughout this paper  \\
-\noindent\rule{8cm}{0.4pt}\\
-$K$ = number of topics\\
-$D$ = number of documents\\
-$V$ = vocabulary size\\
-$N$ =  total number of words in the text corpus\\
-$N_d$ =  number of words in document d\\
-$z_j$ = the j-th topic\\
-$d_i$ = the i-th document\\
-$w_i$ = the i-th word in the document\\
-\noindent\rule{8cm}{0.4pt}
 
-\section{LDA}
-The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a “topic”. The general process of the model to write a document is the following:
+
+\begin{table}[htbp]\caption{Table of Notation}
+\centering % to have the caption near the table
+\begin{tabular}{r c p{10cm} }
+\toprule
+
+$K$ & $=$ & number of topics\\
+$D$ & $=$ & number of documents\\
+$V$ & $=$ & vocabulary size\\
+$N$ & $=$ &  total number of words in the text corpus\\
+$N_d$ & $=$ &  number of words in document d\\
+$d_i$ & $=$ & i-th document\\
+$z_j$ & $=$ & j-th topic\\
+$w_i$ & $=$ & i-th word in the document\\
+$\alpha, \beta$ & $=$ & hyperparameters that defines the Dirichlet prior\\
+$C_{dk}$ & $=$ & number of type v which are assigned with topic k\\
+$C_{vk}$ & $=$ & number of topics k in document d\\
+
+
+\bottomrule
+\end{tabular}
+\label{tab:TableOfNotationForMyResearch}
+\end{table}
+
+
+
+\section{Latent Dirichlet Allocation}
+The latent Dirichlet allocation (LDA) model explains the generation of text documents, which can be viewed as samples from a mixture of multinomial distributions over a vocabulary of words. Each multinomial mixture component is called a topic��. The general process of the model to write a document is the following:
+
 
 \begin{enumerate}
 \item The number of words $N$ in document $\sim$ Poisson ($\zeta$)
