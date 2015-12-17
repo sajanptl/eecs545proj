@@ -92,7 +92,7 @@ def save_data(X, appendix, dirname):
     # save X
     Xdense = X.todense()                            # convert X to dense matrix
     Xrow_sum = np.ravel(np.sum(Xdense, axis = 1))   # sum of each row
-    nonzero_index = np.nonzero(Xrow_sum)            # find index of nonzeros
+    nonzero_index = np.ravel(np.nonzero(Xrow_sum))  # find index of nonzeros
     Xdense_nonzero = Xdense[nonzero_index, :]       # get nonzero rows
     sio.savemat(dirname + 'W' + appendix + '.mat',
                 mdict={'W'+appendix: Xdense_nonzero})
