@@ -187,28 +187,24 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 
 
 \subsection{Inference Method}
-With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution q over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence:\\
+With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution q over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. In order to make the problem intractable, Jensen's inequality is applied to yield an evidence lower bound for the log-likelihood. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence:\\
 
 \begin{equation}
 D(q(\theta,Z|\gamma,\phi)||p(\theta,Z|W,\alpha,\beta)) = \log p(W|\alpha,\beta) - L(\gamma,\phi;\alpha,\beta)
 \end{equation}
-
 where
-
 \begin{equation}
 L(\gamma,\phi;\alpha,\beta) =E_q[\log p(\theta,Z,W|\alpha,\beta)] - E_q[\log q(\theta,Z)]
 \end{equation}
 
-Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm. In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{vi}
+    \caption{Graphical model representation of the variational distribution used to approximate the posterior in LDA.}
+    \label{fig:graphmodel}
+\end{figure}
 
-\begin{align}
-\frac{\partial L}{\partial \alpha_i} &= D(\Psi (\sum_{j=1}^{K}\alpha_j)-\Psi(\alpha_i)) + \sum_{d=1}^{D}(\Psi(\gamma_{di}) -\Psi(\sum_{j=1}^{K}\gamma_{dj}))\\
-\frac{\partial L}{\partial \alpha_i \alpha_j} &= D\Psi'(\sum_{j=1}^{K}\alpha_j) - \delta (i,j)D\Psi'(\alpha_i)
-\end{align}
-
-
-When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $\exp\{-L/N\}$).
-
+Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm.
 
 \begin{table}%
 \begin{subalgorithm}{.5\textwidth}
@@ -251,22 +247,18 @@ When applying LDA to training documents, the estimation and maximization steps a
 \caption{M-step}\label{algo2}
 \end{subalgorithm}
 \captionsetup{labelformat=alglabel}
-\caption{Two algorithms}%
+\caption{EM algorithm}%
 \label{tab:1}%
 \end{table}
 
-In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound $L(\gamma,\phi;\alpha,\beta)$:\\
-$g(\alpha^{t})$
+In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound:\\
 
-When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $e^{-L/N}$).
+\begin{align}
+\frac{\partial L}{\partial \alpha_i} &= D(\Psi (\sum_{j=1}^{K}\alpha_j)-\Psi(\alpha_i)) + \sum_{d=1}^{D}(\Psi(\gamma_{di}) -\Psi(\sum_{j=1}^{K}\gamma_{dj}))\\
+\frac{\partial L}{\partial \alpha_i \alpha_j} &= D\Psi'(\sum_{j=1}^{K}\alpha_j) - \delta (i,j)D\Psi'(\alpha_i)
+\end{align}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\textwidth]{vi}
-    \caption{Graphical model representation of the variational distribution used to approximate the posterior in LDA.}
-    \label{fig:graphmodel}
-\end{figure}
-
+When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $\exp\{-L/N\}$).
 
 \section{Evaluations and Empirical Results}
 \subsection{Dataset and Preprocessing}
