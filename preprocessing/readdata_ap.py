@@ -15,9 +15,13 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.cross_validation import train_test_split
 
 ENGLISH_STOP_WORDS = stopwords.words("english")
-for w in ['would', 'also', 'said', 're', 'good', 'best', 'like', 'well', 'love', 'great',
-        'go', 'get', 'got', 'one', 'really', 'always', 'food', 'place', 'order', 'ordered', 've']:
+for w in ['would', 'also', 'said', 're', 'go', 'get', 'got']:
     ENGLISH_STOP_WORDS.append(w)
+
+# ENGLISH_STOP_WORDS = stopwords.words("english")
+# for w in ['would', 'also', 'said', 're', 'good', 'best', 'like', 'well', 'love', 'great',
+#         'go', 'get', 'got', 'one', 'really', 'always', 'food', 'place', 'order', 'ordered', 've']:
+#     ENGLISH_STOP_WORDS.append(w)
 
 def string_to_token(s):
     """Convert a string to a list of tokens.
@@ -63,8 +67,8 @@ def vectorize(tokens, dirname):
     Output: count vector
     The volcabulary is built and saved in .mat
     """
-    vectorizer = CountVectorizer(max_df=0.7,
-                                min_df=10,
+    vectorizer = CountVectorizer(max_df=0.9,
+                                min_df=20,
                                 stop_words=ENGLISH_STOP_WORDS)
     X = vectorizer.fit_transform(tokens)
     # WO is a W x 1 cell array of strings where WO{k} contains the kth vocabulary
