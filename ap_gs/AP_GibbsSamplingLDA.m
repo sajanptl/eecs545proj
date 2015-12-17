@@ -15,8 +15,8 @@ load 'DS_test.mat'
 cd(original_path)
 
 % set parameters
-T = 10;          % number of topics
-N_round = 300;   % number of iterations
+T = 2;          % number of topics
+N_round = 30;   % number of iterations
 ALPHA = 5;
 BETA = 0.1;
 SEED = 1;       % seed for random numbers
