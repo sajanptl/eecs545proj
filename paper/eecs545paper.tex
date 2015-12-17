@@ -169,7 +169,7 @@ L(\gamma,\phi;\alpha,\beta): g(\alpha^{t})
 
 When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $\exp\{-L/N\}$).
 
-
+\lipsum[1]
 \begin{table}%
 \begin{subalgorithm}{.5\textwidth}
 \begin{algorithmic}[1]
@@ -185,11 +185,10 @@ When applying LDA to training documents, the estimation and maximization steps a
 \State $\gamma^{t+1}:=\alpha +\sum_{n=1}^{N}\phi_{n}^{t+1}$
 \State $t \gets t+1$
 \BState until convergence
+
 \end{algorithmic}
-
-\caption{E-step}
-
-\end{subalgorithm}
+\caption{E-step}\label{algo1}
+\end{subalgorithm}%
 \begin{subalgorithm}{.5\textwidth}
 \begin{algorithmic}[1]
 
@@ -207,13 +206,12 @@ When applying LDA to training documents, the estimation and maximization steps a
 \BState until convergence
 
 \end{algorithmic}
-\caption{M-step}
+\caption{M-step}\label{algo2}
 \end{subalgorithm}
 \captionsetup{labelformat=alglabel}
-\caption{Two algorithms}
+\caption{Two algorithms}%
 \label{tab:1}%
 \end{table}
-
 
 \section{Our Implementation}
 \begin{figure}
