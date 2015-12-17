@@ -14,3 +14,4 @@ data/yelp_dataset_challenge_academic_dataset
 # matlab related
 *.m~
 *.mexmaci64
+*.mexa64
