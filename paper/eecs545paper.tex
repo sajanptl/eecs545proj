@@ -162,9 +162,8 @@ However, since the KL divergence is intractable, Jensen's inequality is applied 
 
 In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound
 
-\begin{equation}
-L(\gamma,\phi;\alpha,\beta): g(\alpha^{t})
-\end{equation}
+$$\frac{\partial L}{\partial \alpha_i} = D(\Psi (\sum_{j=1}^{K}\alpha_j)-\Psi(\alpha_i)) + \sum_{d=1}^{D}(\Psi(\gamma_{di}) -\Psi(\sum_{j=1}^{K}\gamma_{dj}))$$\\
+$$\frac{\partial L}{\partial \alpha_i \alpha_j} = D\Psi'(\sum_{j=1}^{K}\alpha_j) - \delta (i,j)D\Psi'(\alpha_i)$$\\
 
 
 When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $\exp\{-L/N\}$).
