@@ -219,8 +219,6 @@ To evaluate our algorithm, we replicated one of the experiments implemented by B
 \subsection{Convergence of Algorithms}
 In AP dataset, each document is unlabeled. Therefore, here we are doing unsupervised learning with a purpose to estimate the likelihood of the test dataset. In natural language processing, the likelihood of a document is usually called perplexity, which is the inverse of the average per-word log likelihood. The perplexity of on the text corpus is defined by
 
-Describe perplexity here:
-
 \begin{align*}
 perplexity(D_{test}) &= \exp\Big\{{-\frac{\sum_{d=1}^{M} \log{p(w_d)}}{\sum_{d=1}^{M}N_d}}\Big\}\\
 & = \exp \Big\{ -\frac{1}{N}\sum_{d=1}^{D}\sum_{i=1}^{N_d}N_{di}\log \sum_{k=1}^{K}\theta_{w_{di}, k}\phi_{d,k} \Big\}
