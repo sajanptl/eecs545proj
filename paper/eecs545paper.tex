@@ -189,20 +189,22 @@ There are two methods to learn these two things: collapsed Gibbs sampling [1] an
 \subsection{Inference Method}
 With the same Dirichlet distribution model assumption shown in the previous section, variational parameters ($\gamma$ and $\phi$) are introduced. The way to do this is to place a distribution q over hidden variables ($\theta$ and Z) with free parameters which are the so called variational parameters. Then, an optimization process can be performed to make the placed distribution close to the posterior in KL divergence:\\
 
-\begin{equation*}
+\begin{equation}
 D(q(\theta,Z|\gamma,\phi)||p(\theta,Z|W,\alpha,\beta)) = \log p(W|\alpha,\beta) - L(\gamma,\phi;\alpha,\beta)
-\end{equation*}
+\end{equation}
 
 where
 
-\begin{equation*}
+\begin{equation}
 L(\gamma,\phi;\alpha,\beta) =E_q[\log p(\theta,Z,W|\alpha,\beta)] - E_q[\log q(\theta,Z)]
-\end{equation*}
+\end{equation}
 
 However, since the KL divergence is intractable, Jensen's inequality is applied to yield an evidence lower bound. Minimizing the KL divergence is equivalent to maximizing the evidence lower bound [5]. The posterior distribution can be obtained with those variational parameters using EM algorithm. In the maximization step, the gradient $g(\alpha^{t})$ and Hessian $H(\alpha^{t})$ are calculated using the evidence lower bound
 
-$$\frac{\partial L}{\partial \alpha_i} = D(\Psi (\sum_{j=1}^{K}\alpha_j)-\Psi(\alpha_i)) + \sum_{d=1}^{D}(\Psi(\gamma_{di}) -\Psi(\sum_{j=1}^{K}\gamma_{dj}))$$\\
-$$\frac{\partial L}{\partial \alpha_i \alpha_j} = D\Psi'(\sum_{j=1}^{K}\alpha_j) - \delta (i,j)D\Psi'(\alpha_i)$$\\
+\begin{align}
+\frac{\partial L}{\partial \alpha_i} &= D(\Psi (\sum_{j=1}^{K}\alpha_j)-\Psi(\alpha_i)) + \sum_{d=1}^{D}(\Psi(\gamma_{di}) -\Psi(\sum_{j=1}^{K}\gamma_{dj}))\\
+\frac{\partial L}{\partial \alpha_i \alpha_j} &= D\Psi'(\sum_{j=1}^{K}\alpha_j) - \delta (i,j)D\Psi'(\alpha_i)
+\end{align}
 
 
 When applying LDA to training documents, the estimation and maximization steps are iteratively applied until the convergence of the evidence lower bound (or equivalently, until the convergence of perplexity $\exp\{-L/N\}$).
@@ -273,10 +275,10 @@ To evaluate our algorithm, we replicated one of the experiments implemented by B
 \subsection{Convergence of Algorithms}
 In AP dataset, each document is unlabeled. Therefore, here we are doing unsupervised learning with a purpose to estimate the likelihood of the test dataset. In natural language processing, the likelihood of a document is usually called \textit{perplexity}, which is the inverse of the average per-word log likelihood. The perplexity of on the text corpus is defined by
 
-\begin{align*}
+\begin{align}
 perplexity(D_{test}) &= \exp\Big\{{-\frac{\sum_{d=1}^{M} \log{p(w_d)}}{\sum_{d=1}^{M}N_d}}\Big\}\\
 & = \exp \Big\{ -\frac{1}{N}\sum_{d=1}^{D}\sum_{i=1}^{N_d}N_{di}\log \sum_{k=1}^{K}\theta_{w_{di}, k}\phi_{d,k} \Big\}
-\end{align*}
+\end{align}
 
 In Gibbs sampling LDA, $\theta_{v, k}$ and $\phi_{d,k}$ can be estimated by
 
